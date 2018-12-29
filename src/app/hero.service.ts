@@ -1,10 +1,12 @@
+
+import {throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
-import { Observable } from 'rxjs/Observable';
-import { Subscriber } from 'rxjs/Subscriber';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscriber } from 'rxjs/internal/Subscriber';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -63,6 +65,20 @@ export class HeroService {
       catchError(this.handleError<Hero>('deleteHero'))
     );
   }
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Observable<Hero[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return Observable.create((observer: Subscriber<any>) => {
+        observer.next([]);
+        observer.complete();
+      });
+    }
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.
@@ -80,9 +96,9 @@ export class HeroService {
 
       // Let the app keep running by returning an empty result.
       return Observable.create((observer: Subscriber<any>) => {
-          observer.next(result as T);
-          observer.complete();
-        });
+        observer.next(result as T);
+        observer.complete();
+      });
     };
   }
 
