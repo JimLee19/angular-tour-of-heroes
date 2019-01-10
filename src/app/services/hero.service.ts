@@ -1,12 +1,12 @@
 
 import {throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Hero } from './hero';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscriber } from 'rxjs/internal/Subscriber';
+import { Hero } from '../hero';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
