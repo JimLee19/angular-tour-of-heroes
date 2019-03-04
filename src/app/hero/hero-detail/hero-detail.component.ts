@@ -2,13 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { HeroService } from '../services/hero.service';
+import { TabDecorator } from '../../decorator/tab-component.decorator';
+import { HeroService } from '../../services/hero.service';
 
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css']
 })
+@TabDecorator({ name: 'detail' })
 export class HeroDetailComponent implements OnInit {
   hero: Hero;
   constructor(
@@ -20,7 +22,8 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
   getHero(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    // const id = +this.route.snapshot.paramMap.get('id');
+    const id = +this.route.firstChild.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
       .subscribe(hero => this.hero = hero);
   }

@@ -25,11 +25,11 @@ import { map, catchError } from 'rxjs/operators';
                 return event;
             }),
             catchError((error: HttpErrorResponse) => {
-                let data = {};
-                data = {
-                    reason: error && error.error.reason ? error.error.reason : '',
-                    status: error.status
-                };
+                // let data = {};
+                // data = {
+                //     reason: error && error.error.reason ? error.error.reason : '',
+                //     status: error.status
+                // };
                 switch (error.status) {
                     case 401:
                         // 权限处理

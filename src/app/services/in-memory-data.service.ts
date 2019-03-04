@@ -1,4 +1,4 @@
-import { Hero } from '../hero';
+import { Hero } from '../hero/hero';
 
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
