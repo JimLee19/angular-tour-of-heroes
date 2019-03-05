@@ -39,7 +39,7 @@ export class TabComponent implements OnInit {
         this.tabView.activeIndex = index = this.tabs.length - 1;
       }
       if (index != this.tabView.activeIndex) {
-        this.tabView.activeIndex = this.tabs.findIndex(x => x.key == e.url);
+        this.tabView.activeIndex = index;
       }
     })
 
