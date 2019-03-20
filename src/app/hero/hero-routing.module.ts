@@ -5,6 +5,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [CommonModule,RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class HeroRoutingModule { }
