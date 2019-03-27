@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
   selector: 'app-hero-form',
@@ -12,10 +13,9 @@ export class HeroFormComponent implements OnInit {
 
   ngOnInit() {
   }
-  powers = ['Really Smart', 'Super Flexible',
-    'Super Hot', 'Weather Changer'];
+  powers:SelectItem[] = [{label:'Really Smart',value:'Really Smart'},{label:'Super Flexible',value:'Super Flexible'} ,{label:'Super Hot',value:'Super Hot'} ,{label:'Weather Changer',value:'Weather Changer'} ];
 
-  model = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
+  model = new Hero(18, 'Dr IQ', this.powers[0].value, 'Chuck Overstreet');
 
   submitted = false;
 

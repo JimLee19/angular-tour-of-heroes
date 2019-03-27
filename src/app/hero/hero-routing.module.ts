@@ -6,12 +6,14 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: '', component: HeroComponent,
     children: [
-      { path: '', redirectTo: 'dashboard' },
+      { path: '', redirectTo: 'home' },
+      { path: 'home', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'detail/:id', component: HeroDetailComponent, data: { title: 'detail' } },
       { path: 'heroes', component: HeroesComponent },
@@ -21,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule,RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class HeroRoutingModule { }

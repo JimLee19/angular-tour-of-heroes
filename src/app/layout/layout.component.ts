@@ -1,7 +1,8 @@
-import { Component, OnInit, SystemJsNgModuleLoader, NgModuleFactory } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader, NgModuleFactory, Input } from '@angular/core';
 import { TabViewService } from '../services/tab-view.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moneyToUpper } from '../common/utils';
+import { TabConfig } from './tab/tab-config';
 
 @Component({
   selector: 'app-layout',
@@ -14,6 +15,7 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private active: ActivatedRoute,
     public tabViewService: TabViewService) { }
+  @Input() homeTabs: TabConfig[];
   ngOnInit() {
     // console.log(this.active,this.active.component);
     // this.router.events.subscribe(x=>console.log(x));

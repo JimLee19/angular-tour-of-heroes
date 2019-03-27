@@ -1,40 +1,43 @@
 import { Injectable, ComponentFactoryResolver, Type, ViewContainerRef, ComponentRef } from '@angular/core';
-import { ENTRY_COMPONENTS } from '../hero/entry_components';
+import { HeroEntryComponents } from '../hero/entry_components';
 import { TabDecorator } from '../decorator/tab-component.decorator';
-import { TabItem } from '../layout/tab/tab-item';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { TabConfig } from '../layout/tab/tab-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TabViewService {
-  tabs: TabItem[] = [];
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  private tabs: TabConfig[] = [];
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private componentFactoryResolver: ComponentFactoryResolver) {
+    console.log(this.route, this.router);
+  }
+  add(tab: TabConfig) {
+    let index = this.getIndex(tab.key);
+    if(index<0){
+      this.tabs.push(tab);
+      index=this.tabs.length - 1;
+    }
+    return index;
+  }
+  addHomeTabs(homeTabs: TabConfig[]) {
+    this.tabs.unshift(...homeTabs);
   }
   getTabs() {
-    if (this.tabs.length > 0) { return this.tabs; }
-    for (let c of ENTRY_COMPONENTS) {
-      const tabMeta = TabDecorator.getTabMetadata(c);
-      if (!tabMeta) { console.error("组件未配置TabComponent信息"); continue; }
-      let item = new TabItem(c, { name: tabMeta.name });
-      this.tabs.push(item);
-    }
     return this.tabs;
   }
   getTab(key: string) {
-    const tabs = this.tabs.length > 0 ? this.tabs : this.getTabs();
-    return tabs.find(x => x.data.key == key);
+    return this.tabs.find(x => x.key == key);
   }
-  getTabByType(component: Type<any>){
-    const tabs = this.tabs.length > 0 ? this.tabs : this.getTabs();
-    return tabs.find(x => x.component==component);
+  getIndex(key: string) {
+    return this.tabs.findIndex(x => x.key === key);
   }
-  // static create(components: Type<any>[]) {
-  //   components.forEach(c => {
-  //     let item = new TabItem(c, { name: c['componentName'] || '无名称' });
-  //     this.tabs.push(item)
-  //   });
-
-  // }
+  getTabByType(component: Type<any>) {
+    return this.tabs.find(x => x.component == component);
+  }
   createComponent<T>(component: Type<T>, parent: ViewContainerRef): ComponentRef<T> {
     if (component === null || component === undefined) {
       return null;

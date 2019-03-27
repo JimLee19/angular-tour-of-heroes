@@ -42,7 +42,7 @@ import { TabContainerComponent, TabComponent } from './layout/tab/tab.component'
   entryComponents: [
     //在客户端编译的组件均写在这，即传统所说懒加载页面
   ],
-  providers: [MessageService, HeroService, SystemJsNgModuleLoader,
+  providers: [/*MessageService, HeroService,*/ SystemJsNgModuleLoader,
     // {
     //   provide: TabViewService,
     //   useValue: TabViewService.create(ENTRY_COMPONENTS)

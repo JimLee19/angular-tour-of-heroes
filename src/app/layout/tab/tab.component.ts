@@ -6,6 +6,7 @@ import { TabView } from 'primeng/tabview';
 import { filter } from 'rxjs/operators';
 import { TabDecorator } from '../../decorator/tab-component.decorator';
 import { Title } from '@angular/platform-browser';
+import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
   selector: 'app-tab',
@@ -14,7 +15,12 @@ import { Title } from '@angular/platform-browser';
 })
 export class TabComponent implements OnInit {
   //tabItems: TabItem[] = [];
-  tabs: TabConfig[] = [];
+  get tabs(): TabConfig[] {
+    return this.tabViewService.getTabs();
+  };
+  get activeIndex() {
+    return this.tabView.activeIndex || 0;
+  }
   @ViewChild('tabView') tabView: TabView;
   ngOnInit(): void {
     console.log(this.tabs);
@@ -24,21 +30,15 @@ export class TabComponent implements OnInit {
     private route: ActivatedRoute,
     private title: Title,
     private tabViewService: TabViewService) {
-    // console.log(this.route);
     //this.router.events.subscribe(e=>console.log(e));
     this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: NavigationEnd) => {
-      //let [url, para] = e.url.split('?');
       const firstChild = this.route.firstChild;
       const component: any = firstChild ? firstChild.component : null;
       if (!component) { return; }
-      const tabMeta = TabDecorator.getTabMetadata(component) || { name: '无标题' };
+      const tabMeta = TabDecorator.getTabMetadata(component) || { name: '无标题', closable: true, disabled: false };
       const key = window.btoa(encodeURIComponent(e.url));
-      let index = this.tabs.findIndex(x => x.key == key);
-      if (index < 0) {
-        this.tabs.push({ key: key, component: component, title: tabMeta.name, active: true, removable: true, routeLink: e.url });
-        this.tabView.activeIndex = index = this.tabs.length - 1;
-      }
-      if (index != this.tabView.activeIndex) {
+      let index = this.tabViewService.add({ key: key, component: component, header: tabMeta.name, disabled: tabMeta.disabled, closable: tabMeta.closable, routeLink: e.url });
+      if (index != this.activeIndex) {
         this.tabView.activeIndex = index;
       }
     })
@@ -49,7 +49,7 @@ export class TabComponent implements OnInit {
     if (this.tabs.length > i && this.tabs[i].routeLink) {
       this.router.navigateByUrl(this.tabs[i].routeLink);
     }
-    this.title.setTitle(this.tabs[i].title);
+    this.title.setTitle(this.tabs[i].header);
   }
   handleClose(e: any) {
     // e.stopPropagation();

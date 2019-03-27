@@ -1,6 +1,7 @@
 <p-tabView #tabView [controlClose]="true" (onChange)="handleChange($event)" (onClose)="handleClose($event)">
-  <p-tabPanel *ngFor="let tab of tabs;let i=index;" header="{{tab.title}}" [selected]="i == tabView.activeIndex"
-    [closable]="tab.removable" [disabled]="!tab.active" [tooltip]="tab.title">
+  <p-tabPanel *ngFor="let tab of tabs;let i=index;" header="{{tab.header}}"
+    [selected]="i == activeIndex" [closable]="tab.closable" [disabled]="tab.disabled"
+    [tooltip]="tab.header">
     <tab-container [tabConfig]="tab"></tab-container>
   </p-tabPanel>
 </p-tabView>
