@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabDecorator } from '../../decorator/tab-component.decorator';
+import { TabDecorator } from '../../_decorators/tab-component.decorator';
 
 @Component({
   selector: 'app-home',

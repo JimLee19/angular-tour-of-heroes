@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabConfig } from '../layout/tab/tab-config';
 import { HomeComponent } from './home/home.component';
 import { TabViewService } from '../services/tab-view.service';
+import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
   selector: 'app-hero',
@@ -17,8 +18,13 @@ export class HeroComponent implements OnInit {
     this.tabViewService.addHomeTabs([{ key: key, header: '工作台', component: HomeComponent, routeLink: '/hero/home', closable: false, disabled: true }]);
   }
   homeTabs: TabConfig[];
+  @ViewChild(BarecodeScannerLivestreamComponent)
+  barecodeScanner: BarecodeScannerLivestreamComponent;
+
   ngOnInit() {
-
+    this.barecodeScanner.start();
   }
-
+  onValueChanges(result) {
+    alert(result.codeResult.code);
+  }
 }

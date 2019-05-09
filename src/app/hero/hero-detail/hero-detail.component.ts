@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { TabDecorator } from '../../decorator/tab-component.decorator';
+import { TabDecorator } from '../../_decorators/tab-component.decorator';
 import { HeroService } from '../../services/hero.service';
 
 @Component({

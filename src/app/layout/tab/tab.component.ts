@@ -4,7 +4,7 @@ import { Router, NavigationStart, NavigationEnd, ActivationEnd, ActivatedRoute }
 import { TabViewService } from '../../services/tab-view.service';
 import { TabView } from 'primeng/tabview';
 import { filter } from 'rxjs/operators';
-import { TabDecorator } from '../../decorator/tab-component.decorator';
+import { TabDecorator } from '../../_decorators/tab-component.decorator';
 import { Title } from '@angular/platform-browser';
 import { MenuItem } from 'primeng/components/common/menuitem';
 

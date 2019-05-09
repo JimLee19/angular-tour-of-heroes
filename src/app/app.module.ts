@@ -1,23 +1,18 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, SystemJsNgModuleLoader } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule, SystemJsNgModuleLoader, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HighlightDirective } from './directive/highlight.directive';
-import { UnlessDirective } from './directive/unless.directive';
-import { HttpConfigInterceptor } from './interceptors/httpconfig.interceptor';
+import { HighlightDirective } from './_directives/highlight.directive';
+import { UnlessDirective } from './_directives/unless.directive';
 import { AppRoutingModule } from './app-routing.module';
-import { ForbiddenNameDirective } from './directive/forbidden-name.directive';
-import { IdentityRevealedValidatorDirective } from './directive/identity-revealed-validator.directive';
-import { MessageService } from './services/message.service';
-import { HeroService } from './services/hero.service';
+import { ForbiddenNameDirective } from './_directives/forbidden-name.directive';
+import { IdentityRevealedValidatorDirective } from './_directives/identity-revealed-validator.directive';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PrimeNGModule } from './modules/prime-ng.module';
-import { LayoutComponent } from './layout/layout.component';
-import { MenuComponent } from './layout/menu/menu.component';
-import { TabContainerComponent, TabComponent } from './layout/tab/tab.component';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { GlobalErrorHandler } from './_helpers/global-error-handler';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,16 +21,11 @@ import { TabContainerComponent, TabComponent } from './layout/tab/tab.component'
     UnlessDirective,
     ForbiddenNameDirective,
     IdentityRevealedValidatorDirective,
-   // LayoutComponent,
-    // MenuComponent,
-    // TabComponent,
-    // TabContainerComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-   // PrimeNGModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 300 }),
     AppRoutingModule,
   ],
@@ -47,7 +37,9 @@ import { TabContainerComponent, TabComponent } from './layout/tab/tab.component'
     //   provide: TabViewService,
     //   useValue: TabViewService.create(ENTRY_COMPONENTS)
     // },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { Injectable, ComponentFactoryResolver, Type, ViewContainerRef, ComponentRef } from '@angular/core';
 import { HeroEntryComponents } from '../hero/entry_components';
-import { TabDecorator } from '../decorator/tab-component.decorator';
+import { TabDecorator } from '../_decorators/tab-component.decorator';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TabConfig } from '../layout/tab/tab-config';
 

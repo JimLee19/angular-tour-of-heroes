@@ -1,18 +1,58 @@
-<div>
-  <label>Hero name:
-    <input #heroName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(heroName.value); heroName.value=''">
-    add
-  </button>
-</div>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}" appHighlight>
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button class="delete" title="delete hero"
-    (click)="delete(hero)">x</button>
-  </li>
-</ul>
+<p-table [columns]="cols" [value]="heroes" [lazy]="true" (onLazyLoad)="loadDataLazy($event)" [paginator]="true"
+  [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [(selection)]="selectedHero">
+  <ng-template pTemplate="caption">
+    <label>Hero name:
+      <input #heroName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+      add
+    </button>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3em">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+      <th>操作</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <td *ngFor="let col of columns" pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <ng-container [ngSwitch]="col.type">
+              <p-calendar *ngSwitchCase="'date'" [(ngModel)]="rowData[col.field]" [style]="{'width':'100%'}">
+              </p-calendar>
+              <p-dropdown *ngSwitchCase="'dropdown'" [options]="powers" [(ngModel)]="rowData[col.field]"
+                [style]="{'width':'100%'}">
+              </p-dropdown>
+              <input *ngSwitchDefault pInputText type="text" [(ngModel)]="rowData[col.field]">
+            </ng-container>
+
+          </ng-template>
+          <ng-template pTemplate="output">
+            <a routerLink="/detail/{{rowData['id']}}" appHighlight>
+              {{rowData[col.field]}}
+            </a>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td style="padding:0">
+        <p-button class="delete" title="delete hero" (click)="delete(rowData)" label='x' class="ui-button-danger">
+        </p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+
+  </ng-template>
+</p-table>
+<app-table #dataTable [tableConfig]="tableConfig" (onLazyLoad)="loadDataLazy($event)"></app-table>
