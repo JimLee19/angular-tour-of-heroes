@@ -11,7 +11,6 @@ import { MenuComponent } from '../layout/menu/menu.component';
 import { TabContainerComponent, TabComponent } from '../layout/tab/tab.component';
 import { HomeComponent } from './home/home.component';
 import { TableComponent } from '../layout/table/table.component';
-import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 const LayoutComponents = [
   LayoutComponent,
@@ -27,7 +26,6 @@ const LayoutComponents = [
     HeroRoutingModule,
     FormsModule,
     PrimeNGModule,
-    BarecodeScannerLivestreamModule,
   ],
   declarations: [
     ...LayoutComponents,

@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '', component: HeroComponent,
     children: [
-      { path: '', redirectTo: 'home' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'detail/:id', component: HeroDetailComponent, data: { title: 'detail' } },

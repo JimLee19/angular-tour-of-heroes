@@ -36,8 +36,9 @@ export class TabComponent implements OnInit {
       const component: any = firstChild ? firstChild.component : null;
       if (!component) { return; }
       const tabMeta = TabDecorator.getTabMetadata(component) || { name: '无标题', closable: true, disabled: false };
-      const key = window.btoa(encodeURIComponent(e.url));
-      let index = this.tabViewService.add({ key: key, component: component, header: tabMeta.name, disabled: tabMeta.disabled, closable: tabMeta.closable, routeLink: e.url });
+      const key = window.btoa(encodeURIComponent(e.urlAfterRedirects));
+      console.log(e.urlAfterRedirects);
+      let index = this.tabViewService.add({ key: key, component: component, header: tabMeta.name, disabled: tabMeta.disabled, closable: tabMeta.closable, routeLink: e.urlAfterRedirects });
       if (index != this.activeIndex) {
         this.tabView.activeIndex = index;
       }
