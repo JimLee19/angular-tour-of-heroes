@@ -35,9 +35,11 @@ export class TabComponent implements OnInit {
       const firstChild = this.route.firstChild;
       const component: any = firstChild ? firstChild.component : null;
       if (!component) { return; }
-      const tabMeta = TabDecorator.getTabMetadata(component) || { name: '无标题', closable: true, disabled: false };
+     // console.log(firstChild.routeConfig);
+      const routeConfig = firstChild ? firstChild.routeConfig : null;
+      const title = routeConfig && routeConfig.data ? routeConfig.data.title : '';
+      const tabMeta = TabDecorator.getTabMetadata(component) || { name: title || '无标题', closable: true, disabled: false };
       const key = window.btoa(encodeURIComponent(e.urlAfterRedirects));
-      console.log(e.urlAfterRedirects);
       let index = this.tabViewService.add({ key: key, component: component, header: tabMeta.name, disabled: tabMeta.disabled, closable: tabMeta.closable, routeLink: e.urlAfterRedirects });
       if (index != this.activeIndex) {
         this.tabView.activeIndex = index;
