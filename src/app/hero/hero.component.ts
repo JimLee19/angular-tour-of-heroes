@@ -12,7 +12,7 @@ export class HeroComponent implements OnInit {
 
   constructor(
     private tabViewService: TabViewService) {
-    const key = window.btoa(encodeURIComponent("/hero/home"));
+    const key = window.btoa(encodeURIComponent('/hero/home'));
     // this.homeTabs=[{key:key,title:'工作台',component:HomeComponent,routeLink:'/hero/home',removable:false,active:true}];
     this.tabViewService.addHomeTabs([{ key: key, header: '工作台', component: HomeComponent, routeLink: '/hero/home', closable: false, disabled: true }]);
   }

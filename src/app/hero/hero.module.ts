@@ -33,7 +33,7 @@ const LayoutComponents = [
     HomeComponent
   ],
   entryComponents: [
-    //在客户端编译的组件均写在这，即传统所说懒加载页面
+    // 在客户端编译的组件均写在这，即传统所说懒加载页面
     ...LayoutComponents,
     ...HeroEntryComponents
   ],

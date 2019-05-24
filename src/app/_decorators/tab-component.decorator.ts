@@ -5,7 +5,7 @@ interface TabMetadata {
   closable?: boolean;
   disabled?: boolean;
 }
-const defaults: TabMetadata = { name: '', closable: true, disabled: false }
+const defaults: TabMetadata = { name: '', closable: true, disabled: false };
 /**添加Tab信息 */
 export function TabDecorator(value: TabMetadata) {
   return (target: any) => {

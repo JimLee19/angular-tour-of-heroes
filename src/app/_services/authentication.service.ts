@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
+import { BehaviorSubject, Observable, Subscriber, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_models/user';
@@ -19,11 +19,11 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<User> {
-    //webpack ${config.apiUrl}
+    // webpack ${config.apiUrl}
     const user = { id: 1, username: username, password: password, firstName: '', lastName: '', token: '' };
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
-    return Observable.create((observer: Subscriber<any>) => {
+    return new Observable((observer: Observer<User>) => {
       observer.next(user);
       observer.complete();
     });

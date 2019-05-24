@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }
                 return event;
             }),
-            //retry(1),
+            // retry(1),
             catchError((err: HttpErrorResponse) => {
                 switch (err.status) {
                     case 401:
@@ -37,6 +37,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }
                 const error = err.error.message || err.statusText;
                 return throwError(error);
-            }))
+            })
+        );
     }
 }

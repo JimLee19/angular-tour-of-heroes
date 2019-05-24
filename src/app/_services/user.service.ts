@@ -7,7 +7,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    //webpack ${config.apiUrl}
+    // webpack ${config.apiUrl}
     return this.http.get<User[]>(`/users`);
   }
 }
