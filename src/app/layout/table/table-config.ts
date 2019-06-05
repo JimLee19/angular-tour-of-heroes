@@ -1,4 +1,3 @@
-import { LazyLoadEvent } from 'primeng/components/common/api';
 
 export interface TableConfig {
     cols: any[],

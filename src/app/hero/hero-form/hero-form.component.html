@@ -29,10 +29,10 @@
     </div>
     <div class="form-group">
       <label for="power">Hero Power</label>
-      <p-dropdown [options]="powers" [(ngModel)]="model.power"></p-dropdown>
+      <!-- <p-dropdown [options]="powers" [(ngModel)]="model.power"></p-dropdown> -->
     </div>
-    <p-button type="submit"  [disabled]="!heroForm.form.valid" label="Submit"></p-button>
-    <p-button type="button" (click)="newHero(); heroForm.reset()" label="New Hero"></p-button>
+    <button type="submit"  [disabled]="!heroForm.form.valid" label="Submit"></button>
+    <button type="button" (click)="newHero(); heroForm.reset()" label="New Hero"></button>
   </form>
 </div>
 <div [hidden]="!submitted">

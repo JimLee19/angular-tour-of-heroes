@@ -5,12 +5,17 @@ import { NgModule, SystemJsNgModuleLoader } from '@angular/core';
 import { HeroRoutingModule } from './hero-routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeNGModule } from '../modules/prime-ng.module';
 import { LayoutComponent } from '../layout/layout.component';
 import { MenuComponent } from '../layout/menu/menu.component';
 import { TabContainerComponent, TabComponent } from '../layout/tab/tab.component';
 import { HomeComponent } from './home/home.component';
 import { TableComponent } from '../layout/table/table.component';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+
+/** 配置 angular i18n **/
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 
 const LayoutComponents = [
   LayoutComponent,
@@ -25,7 +30,7 @@ const LayoutComponents = [
     CommonModule,
     HeroRoutingModule,
     FormsModule,
-    PrimeNGModule,
+    NgZorroAntdModule, /** 导入 ng-zorro-antd 模块 **/
   ],
   declarations: [
     ...LayoutComponents,
@@ -37,6 +42,11 @@ const LayoutComponents = [
     ...LayoutComponents,
     ...HeroEntryComponents
   ],
-  providers: [MessageService, HeroService, SystemJsNgModuleLoader],
+  providers: [
+    MessageService,
+    HeroService,
+    SystemJsNgModuleLoader,
+    { provide: NZ_I18N, useValue: zh_CN }, /** 配置 ng-zorro-antd 国际化（文案 及 日期） **/
+  ],
 })
 export class HeroModule { }

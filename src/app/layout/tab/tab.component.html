@@ -1,7 +1,10 @@
-<p-tabView #tabView [controlClose]="true" (onChange)="handleChange($event)" (onClose)="handleClose($event)">
-  <p-tabPanel *ngFor="let tab of tabs;let i=index;" header="{{tab.header}}"
-    [selected]="i == activeIndex" [closable]="tab.closable" [disabled]="tab.disabled"
-    [tooltip]="tab.header">
+<nz-tabset #tabView [nzSelectedIndex]="activeIndex">
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [nzDisabled]="tab.disabled">
+    <ng-template #titleTemplate> 
+      <div><i nz-icon [type]="tab.icon"></i>{{ tab.header }}
+        <i *ngIf="tab.closable" nz-icon type="close" class="ant-tabs-close-x" (click)="handleClose(tab)"></i>
+      </div>
+    </ng-template>
     <tab-container [tabConfig]="tab"></tab-container>
-  </p-tabPanel>
-</p-tabView>
+  </nz-tab>
+</nz-tabset>

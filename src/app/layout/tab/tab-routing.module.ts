@@ -6,10 +6,10 @@ import { RouterModule } from '@angular/router';
     exports: [RouterModule]
   })
   export class TabRoutingModule {
-    static forChild(rootComponent: Type<any>, emptyRedirectTo = "home") {
+    static forChild(rootComponent: Type<any>, emptyRedirectTo = 'home') {
       return RouterModule.forChild([
-        { path: "", redirectTo: emptyRedirectTo, pathMatch: "full" },
-        { path: ":id", component: rootComponent }
+        { path: '', redirectTo: emptyRedirectTo, pathMatch: 'full' },
+        { path: ':id', component: rootComponent }
       ]);
     }
   }

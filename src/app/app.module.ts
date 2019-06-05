@@ -30,7 +30,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     AppRoutingModule,
   ],
   entryComponents: [
-    //在客户端编译的组件均写在这，即传统所说懒加载页面
+    // 在客户端编译的组件均写在这，即传统所说懒加载页面
   ],
   providers: [/*MessageService, HeroService,*/ SystemJsNgModuleLoader,
     // {
@@ -39,7 +39,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     // },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent]
 })

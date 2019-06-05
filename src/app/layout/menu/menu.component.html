@@ -1,1 +1,17 @@
-<p-panelMenu [model]="items" [multiple]="false"></p-panelMenu>
+<ul nz-menu [nzMode]="'inline'" style="height: 100%;">
+    <li nz-submenu>
+        <span title>菜单栏</span>
+        <ul>
+            <li nz-menu-item>
+                <a routerLink="./dashboard">
+                    Dashboard
+                </a>
+            </li>
+            <li nz-menu-item>
+                <a routerLink="./heroes">
+                    Heroes
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

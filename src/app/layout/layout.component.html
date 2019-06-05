@@ -1,11 +1,12 @@
-<div class="p-grid">
-        <div class="p-col-12">
-                Top
-            </div>
-    <div class="p-col-fixed" style="width:300px;">
-        <app-menu></app-menu>
-    </div>
-    <div class="p-col">
-        <app-tab></app-tab>
-    </div>
-</div>
+<nz-layout>
+    <nz-header>Header</nz-header>
+    <nz-layout>
+        <nz-sider [(nzCollapsed)]="isCollapsed" [nzWidth]="width" [nzReverseArrow]="isReverseArrow">
+            <app-menu></app-menu>
+        </nz-sider>
+        <nz-content>
+            <app-tab></app-tab>
+        </nz-content>
+    </nz-layout>
+    <nz-footer>Footer</nz-footer>
+</nz-layout>

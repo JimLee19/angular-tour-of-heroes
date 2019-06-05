@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -9,10 +8,9 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 export class MenuComponent implements OnInit {
 
   constructor() { }
-  items: MenuItem[];
 
   ngOnInit() {
-    this.items = [
+    const items = [
       {
         label: '菜单',
         icon: 'pi pi-pw pi-file',
