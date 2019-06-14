@@ -6,7 +6,7 @@ import { TabDecorator } from '../../_decorators/tab-component.decorator';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-@TabDecorator({ name: '工作台' })
+@TabDecorator({ name: '工作台', closable: false })
 export class HomeComponent implements OnInit {
 
   constructor() { }

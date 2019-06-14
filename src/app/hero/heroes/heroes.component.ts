@@ -8,7 +8,7 @@ import { HeroService } from '../../services/hero.service';
 })
 export class HeroesComponent implements OnInit {
 
-  datasource: Hero[]=[];
+  datasource: Hero[] = [];
   selectedHero: Hero[];
   heroes: Hero[];
   cols: any[];
@@ -22,8 +22,6 @@ export class HeroesComponent implements OnInit {
   footer = true;
   fixHeader = false;
   size = 'small';
-  expandable = true;
-  checkbox = true;
   allChecked = false;
   indeterminate = false;
   displayData: any[] = [];
@@ -36,13 +34,17 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
     this.cols = [
+      { field: 'expand', header: 'expand', type: 'expand' },
+      { field: 'rowcheck', header: 'rowcheck', type: 'rowcheck' },
       { field: 'name', header: 'name', type: 'text' },
       { field: 'power', header: 'power', type: 'dropdown' },
       { field: 'alterEgo', header: 'alterEgo', type: 'text' },
       { field: 'birthday', header: 'birthday', type: 'date' },
     ];
   }
-
+  get expandColspan() {
+    return this.cols.filter(x => !['expand'].includes(x.type)).length;
+  }
   getHeroes() {
     this.heroService.getHeroes().subscribe(heroes => {
       this.datasource = heroes;

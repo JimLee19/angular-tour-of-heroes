@@ -1,19 +1,22 @@
 
 export interface TableConfig {
-    cols: any[],
+    cols: any[];
     /**默认分页数,0表示不分页 */
-    defaultPageSize: number,
+    defaultPageSize: number;
     /**懒加载 */
-    lazy: boolean,
-    models: any[],
-    totals: number,
-}
-export class TableConfig implements TableConfig {
-    cols: any[] = [];
-    /**默认分页数,0表示不分页 */
-    defaultPageSize: number = 20;
-    /**懒加载 */
-    lazy: boolean = true;
-    models: any[] = [];
-    totals: number = 0;
+    lazy: boolean;
+    datasource: any[];
+    totals: number;
+    /**表格尺寸 */
+    size: 'middle' | 'small' | 'default';
+    /**分页显示位置 */
+    position: 'top' | 'bottom' | 'both';
+    pageSizeOption: number[];
+    /**是否显示边框 */
+    bordered: boolean;
+    header: boolean;
+    /**表格标题 */
+    title?: string;
+    /**表格脚注 */
+    footer?: string;
 }

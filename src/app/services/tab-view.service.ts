@@ -17,9 +17,9 @@ export class TabViewService {
   }
   add(tab: TabConfig) {
     let index = this.getIndex(tab.key);
-    if(index<0){
+    if (index < 0) {
       this.tabs.push(tab);
-      index=this.tabs.length - 1;
+      index = this.tabs.length - 1;
     }
     return index;
   }
@@ -30,20 +30,25 @@ export class TabViewService {
     return this.tabs;
   }
   getTab(key: string) {
-    return this.tabs.find(x => x.key == key);
+    return this.tabs.find(x => x.key === key);
   }
   getIndex(key: string) {
     return this.tabs.findIndex(x => x.key === key);
   }
+  removeTab(key: string) {
+    const i = this.getIndex(key);
+    this.tabs.splice(i, 1);
+    return i;
+  }
   getTabByType(component: Type<any>) {
-    return this.tabs.find(x => x.component == component);
+    return this.tabs.find(x => x.component === component);
   }
   createComponent<T>(component: Type<T>, parent: ViewContainerRef): ComponentRef<T> {
     if (component === null || component === undefined) {
       return null;
     }
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    let componentRef = parent.createComponent(componentFactory);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const componentRef = parent.createComponent(componentFactory);
     return componentRef;
   }
 }

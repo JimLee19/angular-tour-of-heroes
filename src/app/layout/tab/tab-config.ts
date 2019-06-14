@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 
 export interface TabConfig {
-    key?: string;
+    key: string;
     header: string;
     closable?: boolean;
     disabled?: boolean;

@@ -1,10 +1,12 @@
-<nz-tabset #tabView [nzSelectedIndex]="activeIndex">
+<nz-tabset #tabView [nzSelectedIndex]="activeIndex" [nzSize]="'small'">
   <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [nzDisabled]="tab.disabled">
     <ng-template #titleTemplate> 
       <div><i nz-icon [type]="tab.icon"></i>{{ tab.header }}
         <i *ngIf="tab.closable" nz-icon type="close" class="ant-tabs-close-x" (click)="handleClose(tab)"></i>
       </div>
     </ng-template>
-    <tab-container [tabConfig]="tab"></tab-container>
+    <nz-spin [nzSpinning]="loading">
+      <app-tab-container [tabConfig]="tab"></app-tab-container>
+    </nz-spin>
   </nz-tab>
 </nz-tabset>

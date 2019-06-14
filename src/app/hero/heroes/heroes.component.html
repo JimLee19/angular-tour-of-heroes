@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzScroll]="fixHeader ? { y: '240px' } : null" [nzData]="datasource" [nzBordered]="bordered"
+<nz-table #nzTable [nzScroll]="fixHeader ? { y: '240px' } : null" [nzData]="datasource" [nzBordered]="bordered"
   [nzSimple]="simple" [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
   [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer ? 'Here is Footer' : null"
   [nzTitle]="title ? 'Here is Title' : null" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)">
@@ -8,21 +8,24 @@
         <th nzWidth="50px" nzShowExpand *ngSwitchCase="'expand'"></th>
         <th nzWidth="62px" nzShowCheckbox *ngSwitchCase="'rowcheck'" [(nzChecked)]="allChecked"
           [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
-        <th *ngSwitchDefault>{{col.header}}</th>
+        <th *ngSwitchDefault nzCustomFilter>{{col.header}}</th>
       </ng-container>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <ng-container *ngFor="let col of cols" [ngSwitch]="col.type">
-        <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="col['expand']"></td>
-        <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [(nzChecked)]="col['checked']" (nzCheckedChange)="refreshStatus()"></td>
-        <td *ngSwitchDefault> {{data[col.field]}} </td>
-      </ng-container>
-    </tr>
-    <!-- <tr [nzExpand]="data['expand'] && expandable">
-      <td></td>
-      <td [attr.colspan]="checkbox ? cols.length+1 : cols.length">{{ data.description }}</td>
-    </tr> -->
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr>
+        <ng-container *ngFor="let col of cols" [ngSwitch]="col.type">
+          <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="!!data['expand']"></td>
+          <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [(nzChecked)]="!!data['checked']"
+            (nzCheckedChange)="refreshStatus()"></td>
+          <td *ngSwitchDefault> {{data[col.field]}} </td>
+        </ng-container>
+      </tr>
+      <tr [nzExpand]="!!data['expand']">
+        <td></td>
+        <td [attr.colspan]="expandColspan">123{{ data.description }}</td>
+      </tr>
+    </ng-template>
   </tbody>
 </nz-table>
