@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { GlobalErrorHandler } from './_helpers/global-error-handler';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { NzMessageModule } from 'ng-zorro-antd';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 300 }),
     AppRoutingModule,
+    NzMessageModule, /** 导入 ng-zorro-message 模块 **/
   ],
   entryComponents: [
     // 在客户端编译的组件均写在这，即传统所说懒加载页面

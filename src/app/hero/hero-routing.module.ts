@@ -1,23 +1,20 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HeroComponent } from './hero.component';
 import { NgModule } from '@angular/core';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { HeroFormComponent } from './hero-form/hero-form.component';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
+import { TabHeroComponents, HeroEntryComponents } from './entry_components';
+import { TabDecorator } from '../_decorators/tab-component.decorator';
 
+// const tabHeroComponents = HeroEntryComponents.filter(x => TabDecorator.getTabMetadata(x) != null).map(x => {
+//   const meta = TabDecorator.getTabMetadata(x);
+//   return { path: meta.path, component: x };
+// });
 const routes: Routes = [
   {
     path: '', component: HeroComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'detail/:id', component: HeroDetailComponent, data: { title: 'detail' } },
-      { path: 'heroes', component: HeroesComponent },
-      { path: 'add', component: HeroFormComponent }
+      ...TabHeroComponents
     ]
   },
 ];

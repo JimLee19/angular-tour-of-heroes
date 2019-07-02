@@ -10,16 +10,12 @@ import { TabConfig } from './tab/tab-config';
   styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent implements OnInit {
-  isCollapsed = false;
-  isReverseArrow = false;
-  width = 200;
   constructor(
     private router: Router,
     private active: ActivatedRoute,
     public tabViewService: TabViewService) { }
-  @Input() homeTabs: TabConfig[];
   ngOnInit() {
-    // console.log(this.active,this.active.component);
+   // console.log(this.active, this.router.url);
     // this.router.events.subscribe(x=>console.log(x));
     // this.router.navigateByUrl(this.router.url);
   }

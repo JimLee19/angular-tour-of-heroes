@@ -6,27 +6,35 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent implements OnInit {
-
+ @Input() isCollapsed = false;
+  menus: any[];
   constructor() { }
 
   ngOnInit() {
-    const items = [
-      {
-        label: '菜单',
-        icon: 'pi pi-pw pi-file',
-        items: [
-          {
-            label: 'Dashboard', icon: 'pi pi-fw pi-plus',
-            routerLink: './dashboard',    //添加路由
-            command: (event) => {       //添加回调函数，即点击‘content’的时候会触发该函数
-              console.log('0', event)
-            }
-          },
-          { label: 'Heroes', icon: 'pi pi-fw pi-external-link', routerLink: './heroes', },
-          { separator: true },
-          { label: 'add', icon: 'pi pi-fw pi-times', routerLink: './add', }
-        ]
-      }
+    this.menus = [{
+      level: 1,
+      title: '菜单栏',
+      icon: 'bars',
+      open: true,
+      selected: false,
+      disabled: false,
+      children: [
+        {
+          level: 2,
+          title: 'Dashboard',
+          selected: false,
+          disabled: false,
+          routeLink: './dashboard'
+        },
+        {
+          level: 2,
+          title: 'Heroes',
+          selected: false,
+          disabled: false,
+          routeLink: './heroes'
+        }
+      ]
+    }
     ];
   }
 

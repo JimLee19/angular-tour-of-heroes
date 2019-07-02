@@ -2,10 +2,11 @@ import { } from 'reflect-metadata';
 const TAB_METADATA_KEY = Symbol('TabDecorator');
 interface TabMetadata {
   name: string;
+  path: string;
   closable?: boolean;
   disabled?: boolean;
 }
-const defaults: TabMetadata = { name: '', closable: true, disabled: false };
+const defaults: TabMetadata = { name: '', path: '', closable: true, disabled: false };
 /**添加Tab信息 */
 export function TabDecorator(value: TabMetadata) {
   return (target: any) => {

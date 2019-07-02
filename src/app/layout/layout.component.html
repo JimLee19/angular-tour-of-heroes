@@ -1,7 +1,8 @@
 <nz-layout>
     <nz-header>Header</nz-header>
     <nz-layout>
-        <nz-sider [(nzCollapsed)]="isCollapsed" [nzWidth]="width" [nzReverseArrow]="isReverseArrow">
+        <nz-sider [nzCollapsedWidth]="0" [(nzCollapsed)]="isCollapsed" [nzWidth]="width"
+            [nzReverseArrow]="isReverseArrow">
             <app-menu></app-menu>
         </nz-sider>
         <nz-content>

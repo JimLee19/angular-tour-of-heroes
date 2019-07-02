@@ -8,7 +8,7 @@ import imageCompression from '../../common/browser-image-compression';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-@TabDecorator({ name: 'dashboard' })
+@TabDecorator({ name: 'dashboard', path: 'dashboard' })
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 

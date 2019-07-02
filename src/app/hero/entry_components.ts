@@ -5,14 +5,23 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
 import { HeroComponent } from './hero.component';
 import { HomeComponent } from './home/home.component';
+import { Route } from '@angular/router';
+import { LayoutComponents } from '../layout/tab/tab-routing.module';
 
-
+export const TabHeroComponents = [
+    { path: 'home', component: HomeComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'detail/:id', component: HeroDetailComponent, data: { title: 'detail' } },
+    { path: 'heroes', component: HeroesComponent },
+    { path: 'add', component: HeroFormComponent }
+];
 export const HeroEntryComponents = [
+    ...LayoutComponents,
     HomeComponent,
-    HeroComponent,
-    HeroesComponent,
-    HeroDetailComponent,
     DashboardComponent,
-    HeroSearchComponent,
+    HeroDetailComponent,
+    HeroesComponent,
     HeroFormComponent,
+    HeroComponent,
+    HeroSearchComponent,
 ];

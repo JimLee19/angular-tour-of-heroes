@@ -3,10 +3,11 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authenticationService: AuthenticationService, private message: NzMessageService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
@@ -24,19 +25,19 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.authenticationService.logout();
                         location.reload(true);
                         break;
-                    case 200:
+                    case 406:
                         // 业务层级错误处理
-                        console.error('业务错误', `错误代码为：${err.error.code}`);
+                        this.message.error(`业务错误，错误代码为：${err.error.code}`);
                         break;
                     case 404:
-                        console.error('404', `API不存在`);
+                        this.message.error(`404：API不存在`);
                         break;
                     default:
-                        console.error(`请求超时`);
+                        this.message.error(`500：请求超时`);
                         break;
                 }
-                const error = err.error.message || err.statusText;
-                return throwError(error);
+               // const error = err.error.message || err.statusText;
+                return throwError(err); // 错误显示在控制台
             })
         );
     }

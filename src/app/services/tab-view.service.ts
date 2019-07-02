@@ -13,7 +13,7 @@ export class TabViewService {
     private router: Router,
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver) {
-    console.log(this.route, this.router);
+    // console.log(this.route, this.router);
   }
   add(tab: TabConfig) {
     let index = this.getIndex(tab.key);
@@ -23,8 +23,22 @@ export class TabViewService {
     }
     return index;
   }
-  addHomeTabs(homeTabs: TabConfig[]) {
-    this.tabs.unshift(...homeTabs);
+  addByRoute() {
+    const lastRoute = this.getActiveRoute();
+    const component: any = lastRoute.component;
+    if (!component) { return; }
+    const routeConfig = lastRoute.routeConfig;
+    const _title = routeConfig && routeConfig.data ? routeConfig.data.title : '';
+    const tabMeta = TabDecorator.getTabMetadata(component) || { name: _title || '无标题', closable: true, disabled: false };
+    const url = this.router.url;
+    const key = window.btoa(encodeURIComponent(url));
+    const index = this.add({ key: key, component: component, header: tabMeta.name, disabled: tabMeta.disabled, closable: tabMeta.closable, routeLink: url });
+    return index;
+  }
+  getActiveRoute() {
+    let activeRoute = this.route.firstChild;
+    while (activeRoute.firstChild) { activeRoute = activeRoute.firstChild; }
+    return activeRoute;
   }
   getTabs() {
     return this.tabs;
