@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent implements OnInit {
- @Input() isCollapsed = false;
+  isCollapsed = false;
+  width = 200;
   menus: any[];
   constructor() { }
 

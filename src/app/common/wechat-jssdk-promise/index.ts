@@ -43,7 +43,7 @@ wx.onMenuShareTimelineAsync = (params: any) => {
             res.result = 'success';
             resolve(res);
         };
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -63,7 +63,7 @@ wx.onMenuShareAppMessageAsync = (params: any) => {
             res.result = 'success';
             resolve(res);
         };
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -83,7 +83,7 @@ wx.onMenuShareQQAsync = (params: any) => {
             res.result = 'success';
             resolve(res);
         };
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -103,7 +103,7 @@ wx.onMenuShareWeiboAsync = (params: any) => {
             res.result = 'success';
             resolve(res);
         };
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -123,7 +123,7 @@ wx.onMenuShareQZoneAsync = (params: any) => {
             res.result = 'success';
             resolve(res);
         };
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -423,7 +423,7 @@ wx.scanQRCodeAsync = (params: any) => {
     params = params || {};
     return new Promise((resolve, reject) => {
         params.success = resolve;
-        params.cancel = function () {
+        params.cancel = () => {
             resolve({ result: 'cancel' });
         };
         params.fail = (res: any) => {
@@ -474,4 +474,4 @@ wx.chooseWXPayAsync = (params: any) => {
         wx.chooseWXPay(params);
     });
 };
-module.exports = wx;
+export { wx };
