@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer, OnDestroy, ViewContainerRef, SystemJsNgModuleLoader, ComponentRef, ComponentFactoryResolver, NgModuleFactory } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, ViewContainerRef, SystemJsNgModuleLoader, ComponentRef, ComponentFactoryResolver, NgModuleFactory, Renderer2 } from '@angular/core';
 import { TabConfig } from './tab-config';
 import { Router, NavigationStart, NavigationEnd, ActivationEnd, ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart } from '@angular/router';
 import { TabViewService } from '../../services/tab-view.service';
