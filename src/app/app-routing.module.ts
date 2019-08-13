@@ -4,8 +4,8 @@ import { AuthGuard } from './_guards';
 
 const routes: Routes = [
   { path: '', redirectTo: 'hero', pathMatch: 'full' },
-  { path: 'hero', loadChildren: () => import('app/hero/hero.module').then(m => m.HeroModule), canActivate: [AuthGuard] },
-  { path: 'account', loadChildren: () => import('app/account/account.module').then(m => m.AccountModule) },
+  { path: 'hero', loadChildren: () => import('./hero/hero.module').then(m => m.HeroModule), canActivate: [AuthGuard] },
+  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   // otherwise redirect to home
   { path: '**', redirectTo: '' },
 ];

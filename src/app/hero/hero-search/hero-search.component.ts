@@ -14,8 +14,10 @@ import { HeroService } from '../../services/hero.service';
   styleUrls: [ './hero-search.component.css' ]
 })
 export class HeroSearchComponent implements OnInit {
+  selectedValue = null;
   heroes$: Observable<Hero[]>;
   private searchTerms = new Subject<string>();
+  nzFilterOption = () => true;
 
   constructor(private heroService: HeroService) {}
 

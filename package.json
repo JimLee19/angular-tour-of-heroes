@@ -24,7 +24,7 @@
     "angular-in-memory-web-api": "^0.8.0",
     "core-js": "^2.4.1",
     "ng-notify": "^0.7.1",
-    "ng-zorro-antd": "^7.4.1",
+    "ng-zorro-antd": "^8.1.2",
     "primeflex": "^1.0.0-rc.1",
     "quagga": "^0.12.1",
     "reflect-metadata": "^0.1.13",

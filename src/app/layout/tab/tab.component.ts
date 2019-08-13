@@ -73,7 +73,7 @@ export class TabComponent implements OnInit {
 export class TabContainerComponent implements OnInit, OnDestroy {
 
   @Input() tabConfig: TabConfig;
-  @ViewChild('container', { read: ViewContainerRef }) vcRef: ViewContainerRef;
+  @ViewChild('container', { read: ViewContainerRef, static: true }) vcRef: ViewContainerRef;
   compRef: ComponentRef<any>;
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private moduleLoader: SystemJsNgModuleLoader) { }
   ngOnInit(): void {

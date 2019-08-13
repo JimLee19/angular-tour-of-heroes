@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -6,8 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent implements OnInit {
-  isCollapsed = false;
-  width = 200;
+
   menus: any[];
   constructor() { }
 
