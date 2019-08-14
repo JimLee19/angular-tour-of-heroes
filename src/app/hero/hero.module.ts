@@ -1,7 +1,7 @@
 import { HeroEntryComponents } from './entry_components';
 import { MessageService } from '../services/message.service';
 import { HeroService } from '../services/hero.service';
-import { NgModule, SystemJsNgModuleLoader } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HeroRoutingModule } from './hero-routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +30,6 @@ registerLocaleData(zh);
   providers: [
     MessageService,
     HeroService,
-    SystemJsNgModuleLoader,
     { provide: NZ_I18N, useValue: zh_CN }, /** 配置 ng-zorro-antd 国际化（文案 及 日期） **/
   ],
 })

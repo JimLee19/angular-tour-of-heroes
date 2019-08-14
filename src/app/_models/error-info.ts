@@ -1,5 +1,5 @@
 
-class BusinessError extends Error {
+export class BusinessError extends Error {
     code: string;
     constructor(code: string, message: string) {
         super(message);

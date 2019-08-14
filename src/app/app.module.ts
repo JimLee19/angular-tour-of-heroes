@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, SystemJsNgModuleLoader, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HighlightDirective } from './_directives/highlight.directive';
@@ -33,7 +33,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
   entryComponents: [
     // 在客户端编译的组件均写在这，即传统所说懒加载页面
   ],
-  providers: [/*MessageService, HeroService,*/ SystemJsNgModuleLoader,
+  providers: [/*MessageService, HeroService,*/
     // {
     //   provide: TabViewService,
     //   useValue: TabViewService.create(ENTRY_COMPONENTS)
