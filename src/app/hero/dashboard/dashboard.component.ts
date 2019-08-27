@@ -3,6 +3,7 @@ import { Hero } from '../hero';
 import { HeroService } from '../../services/hero.service';
 import { TabDecorator } from '../../_decorators/tab-component.decorator';
 import imageCompression from '../../common/browser-image-compression';
+import { moneyToUpper } from '../../common/utils';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +22,11 @@ export class DashboardComponent implements OnInit {
   getHeroes(): void {
     this.heroService.getHeroes()
       .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  }
+  upperMoney: string;
+  money: number;
+  upper() {
+    this.upperMoney = moneyToUpper(this.money);
   }
   async handleImageUpload(event: any) {
 

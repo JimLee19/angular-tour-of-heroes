@@ -1,5 +1,5 @@
 
-import {throwError as observableThrowError} from 'rxjs';
+import { throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -70,7 +70,7 @@ export class HeroService {
   searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
-      return Observable.create((observer: Subscriber<any>) => {
+      return new Observable((observer: Subscriber<any>) => {
         observer.next([]);
         observer.complete();
       });
@@ -96,7 +96,7 @@ export class HeroService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return Observable.create((observer: Subscriber<any>) => {
+      return new Observable((observer: Subscriber<any>) => {
         observer.next(result as T);
         observer.complete();
       });

@@ -1,8 +1,6 @@
-import { Component, OnInit, SystemJsNgModuleLoader, NgModuleFactory, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { TabViewService } from '../services/tab-view.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { moneyToUpper } from '../common/utils';
-import { TabConfig } from './tab/tab-config';
 
 @Component({
   selector: 'app-layout',
