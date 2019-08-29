@@ -6,19 +6,14 @@ import { HeroRoutingModule } from './hero-routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { LayoutModuleModule } from '../layout/layout-module.module';
 
-/** 配置 angular i18n **/
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
 
 
 @NgModule({
   imports: [
-    CommonModule,
+    LayoutModuleModule,
     HeroRoutingModule,
-    FormsModule,
-    NgZorroAntdModule, /** 导入 ng-zorro-antd 模块 **/
   ],
   declarations: [
     ...HeroEntryComponents,
@@ -30,7 +25,6 @@ registerLocaleData(zh);
   providers: [
     MessageService,
     HeroService,
-    { provide: NZ_I18N, useValue: zh_CN }, /** 配置 ng-zorro-antd 国际化（文案 及 日期） **/
   ],
 })
 export class HeroModule { }

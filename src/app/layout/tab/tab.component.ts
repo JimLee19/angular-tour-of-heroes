@@ -41,12 +41,8 @@ export class TabComponent implements OnInit {
       }
     });
   }
-  handleChange(e: Event & { index: number }) {
-    const i = e.index;
-    if (this.tabs.length > i && this.tabs[i].routeLink) {
-      this.router.navigateByUrl(this.tabs[i].routeLink);
-    }
-    this.title.setTitle(this.tabs[i].header);
+  handleChange(e: TabConfig) {
+    this.router.navigateByUrl(e.routeLink);
   }
   handleClose(e: TabConfig) {
     // e.stopPropagation();

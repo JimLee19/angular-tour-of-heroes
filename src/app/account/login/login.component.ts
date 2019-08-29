@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service';
 
@@ -15,6 +15,23 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+  validationMessage = {
+    username: {
+      minlength: '用户名长度最少3个',
+      maxlength: '用户名长度最长10个',
+      required: '请填写用户名'
+    },
+    password: {
+      required: '请填写密码'
+    }
+  };
+  getValidationMessage(name: string) {
+    console.log(this.loginForm.errors);
+    const err = this.loginForm.controls[name].errors;
+    if (!err) { return ''; }
+    const key = Object.keys(err)[0];
+    return this.validationMessage[name][key];
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,7 +42,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required,
+      Validators.maxLength(10),
+      Validators.minLength(3)]],
       password: ['', Validators.required]
     });
 
@@ -44,6 +63,7 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
+     // console.log(this.f['username'].errors);
       return;
     }
 
