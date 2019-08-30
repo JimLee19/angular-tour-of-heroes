@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     }
   };
   getValidationMessage(name: string) {
-    console.log(this.loginForm.errors);
+   // console.log(this.loginForm.errors);
     const err = this.loginForm.controls[name].errors;
     if (!err) { return ''; }
     const key = Object.keys(err)[0];
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required,
+      username: ['admin', [Validators.required,
       Validators.maxLength(10),
       Validators.minLength(3)]],
       password: ['', Validators.required]

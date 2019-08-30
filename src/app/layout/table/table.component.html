@@ -1,0 +1,19 @@
+<div>
+    <!-- 增加移除表单 -->
+    <button (click)="newForm()">增加表单</button>
+    <button (click)="removeForm(i)">移除表单</button>
+</div>
+<form [formGroup]="groupForm" id="detail" class="am-g">
+
+    <p formArrayName="Arr">
+        <ng-container *ngFor="let item of groupForm.get('Arr').controls as FormArray; let i=index;" [formGroupName]="i">
+            <p>
+                <ng-container *ngFor="let name of getKey(item)">
+                    <input type="text" [formControlName]="name" />
+                </ng-container>
+
+
+            </p>
+        </ng-container>
+    </p>
+</form>
