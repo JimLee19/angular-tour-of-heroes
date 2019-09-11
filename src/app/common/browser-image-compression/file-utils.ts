@@ -11,6 +11,18 @@ export function getDataUrlFromFile(file: any): Promise<string> {
         reader.readAsDataURL(file);
     });
 }
+/**
+ * getBinaryFromFile
+ * @param file
+ */
+export function getBinaryFromFile(file: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (e) => reject(e);
+        reader.readAsBinaryString(file);
+    });
+}
 
 /**
  * getFilefromDataUrl
