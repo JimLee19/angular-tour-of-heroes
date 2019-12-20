@@ -22,17 +22,23 @@ export class TableComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.groupForm = this.fb.group({
-
+      testName: ['', Validators.required],
+      Tcl: this.fb.array([]),
       Arr: this.fb.array([this.createForm()]) // formarray
 
     });
 
   }
+  onSubmit() {
+    if (this.groupForm.invalid) {
+      console.log(this.groupForm.value);
+
+    }
+  }
   private createForm() {
+    const group = this.fb.group({
 
-    return this.fb.group({
-
-      control1: ['', Validators.required],
+      control1: [{ value: 'name', disabled: true }, Validators.required],
 
       control2: ['', Validators.required],
 
@@ -45,16 +51,19 @@ export class TableComponent implements OnInit {
       Remark: [''],
 
     });
-
+    console.log(group.get('control1'));
+    return group;
   }
   getKey(item: FormArray) {
-    console.log(item);
+    // console.log(item);
     return Object.keys(item.controls);
   }
   newForm() {
 
     const arr = this.groupForm.get('Arr') as FormArray;
-
+    // arr.reset([
+    //   {value: '123', disabled: true}
+    // ]);
     arr.push(this.createForm()); // 推送form新表单
 
   }

@@ -24,7 +24,7 @@
       </tr>
       <tr [nzExpand]="!!data['expand']">
         <td></td>
-        <td [attr.colspan]="expandColspan">123{{ data.description }}</td>
+        <td [attr.colspan]="expandColspan">{{getExpandContent(data)}}</td>
       </tr>
     </ng-template>
   </tbody>

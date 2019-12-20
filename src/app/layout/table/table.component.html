@@ -1,19 +1,7 @@
-<div>
-    <!-- 增加移除表单 -->
-    <button (click)="newForm()">增加表单</button>
-    <button (click)="removeForm(i)">移除表单</button>
-</div>
-<form [formGroup]="groupForm" id="detail" class="am-g">
-
-    <p formArrayName="Arr">
-        <ng-container *ngFor="let item of groupForm.get('Arr').controls as FormArray; let i=index;" [formGroupName]="i">
-            <p>
-                <ng-container *ngFor="let name of getKey(item)">
-                    <input type="text" [formControlName]="name" />
-                </ng-container>
-
-
-            </p>
-        </ng-container>
-    </p>
+<form nz-form [formGroup]="groupForm" id="detail" class="am-g" (submit)="onSubmit()">
+    <nz-form-control>
+        <input formControlName="testName" nz-input placeholder="testName" />
+    </nz-form-control>
+    <app-dynamic-table-array [groupForm]="groupForm" formArrayName="Tcl"></app-dynamic-table-array>
+    <button type="submit">保存</button>
 </form>

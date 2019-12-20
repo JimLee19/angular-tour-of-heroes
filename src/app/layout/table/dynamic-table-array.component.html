@@ -1,0 +1,41 @@
+<nz-table #nzTable [formGroup]="groupForm" [nzData]="values" [nzBordered]="bordered" [nzSimple]="simple"
+    [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
+    [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="title"
+    [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)">
+    <thead>
+        <tr>
+            <th [attr.colspan]="cols.length" [nzAlign]="'left'">
+                <button nz-button nzType="default" (click)="add()">添加</button>
+                <button nz-button nzType="default" (click)="remove()">删除</button>
+            </th>
+        </tr>
+        <tr>
+            <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
+                <th nzWidth="50px" nzShowExpand *ngSwitchCase="'expand'"></th>
+                <th nzWidth="62px" nzShowCheckbox *ngSwitchCase="'rowcheck'" [(nzChecked)]="allChecked"
+                    [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th *ngSwitchDefault nzCustomFilter>{{col.displayName}}</th>
+            </ng-container>
+        </tr>
+    </thead>
+    <tbody [formArrayName]="formArrayName">
+        <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+            <tr [formGroupName]="nzTable.nzPageSize*(nzTable.nzPageIndex-1)+i">
+                <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
+                    <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="!!data['_expand']"></td>
+                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [(nzChecked)]="!!data['_checked']"
+                        (nzCheckedChange)="refreshStatus()"></td>
+                    <td *ngSwitchDefault>
+                        <nz-form-control>
+                            <input [formControlName]="col.propertyName" nz-input [placeholder]="col.propertyName" />
+                        </nz-form-control>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr [nzExpand]="!!data['_expand']">
+                <td></td>
+                <td [attr.colspan]="cols.length-1">{{getExpandContent(data)}}</td>
+            </tr>
+        </ng-template>
+    </tbody>
+</nz-table>

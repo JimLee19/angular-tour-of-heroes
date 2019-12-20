@@ -22,4 +22,12 @@ function guid() {
         return v.toString(16);
     });
 }
-export { guid, moneyToUpper };
+function certainFunction(obj: object, keys: string[]) {
+    return keys.reduce((result, key) => {
+        if (obj.hasOwnProperty(key)) {
+            result[key] = obj[key];
+        }
+        return result;
+    }, {});
+}
+export { guid, moneyToUpper, certainFunction };

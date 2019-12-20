@@ -1,6 +1,7 @@
+import { FormArray, FormControl } from '@angular/forms';
 
 export interface TableConfig {
-    cols: any[];
+    controls: any[];
     /**默认分页数,0表示不分页 */
     defaultPageSize: number;
     /**懒加载 */
@@ -19,4 +20,15 @@ export interface TableConfig {
     title?: string;
     /**表格脚注 */
     footer?: string;
+}
+export class TableFormArray extends FormArray {
+    controls: TableFormControl[];
+}
+export class TableFormControl extends FormControl {
+    field: string;
+    header: string;
+    type: string;
+    defaultValue: string;
+    min: number;
+    max: number;
 }

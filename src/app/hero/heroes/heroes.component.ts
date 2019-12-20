@@ -42,6 +42,9 @@ export class HeroesComponent implements OnInit {
       { field: 'birthday', header: 'birthday', type: 'date' },
     ];
   }
+  getExpandContent(data: any) {
+    return `${data['name']}-描述信息`;
+  }
   get expandColspan() {
     return this.cols.filter(x => !['expand'].includes(x.type)).length;
   }

@@ -4,6 +4,7 @@ import { LayoutComponent } from '../layout.component';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent, TabContainerComponent } from './tab.component';
 import { TableComponent } from '../table/table.component';
+import { DynamicTableArrayComponent } from '../table/dynamic-table-array.component';
 
 // @NgModule({
 //   imports: [RouterModule],
@@ -24,4 +25,5 @@ export const LayoutComponents = [
   TabComponent,
   TabContainerComponent,
   TableComponent,
+  DynamicTableArrayComponent,
 ];
