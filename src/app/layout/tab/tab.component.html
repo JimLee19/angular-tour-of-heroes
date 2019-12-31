@@ -1,7 +1,7 @@
 <nz-tabset #tabView [nzSelectedIndex]="activeIndex" [nzSize]="'small'">
   <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [nzDisabled]="tab.disabled" (nzSelect)="handleChange(tab)">
     <ng-template #titleTemplate > 
-      <div><i nz-icon [type]="tab.icon"></i>{{ tab.header }}
+      <div><i nz-icon [nzType]="tab.icon"></i>{{ tab.header }}
         <i *ngIf="tab.closable" nz-icon type="close" class="ant-tabs-close-x" (click)="handleClose(tab)"></i>
       </div>
     </ng-template>

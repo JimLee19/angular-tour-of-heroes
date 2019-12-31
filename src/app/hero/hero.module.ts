@@ -3,15 +3,16 @@ import { MessageService } from '../services/message.service';
 import { HeroService } from '../services/hero.service';
 import { NgModule } from '@angular/core';
 import { HeroRoutingModule } from './hero-routing.module';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { SharedModule } from '../_modules/shared.module';
+import { FeatureModule } from '../_modules/feature.module';
 import { LayoutModuleModule } from '../layout/layout-module.module';
 
 
 
 @NgModule({
   imports: [
+   // SharedModule,
+  //  FeatureModule,
     LayoutModuleModule,
     HeroRoutingModule,
   ],

@@ -1,10 +1,9 @@
-import { NgModule, Type } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { LayoutComponent } from '../layout.component';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent, TabContainerComponent } from './tab.component';
-import { TableComponent } from '../table/table.component';
-import { DynamicTableArrayComponent } from '../table/dynamic-table-array.component';
+import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
+import { DynamicFormTableComponent } from '../dynamic-form-table/dynamic-form-table.component';
+import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
 
 // @NgModule({
 //   imports: [RouterModule],
@@ -24,6 +23,7 @@ export const LayoutComponents = [
   MenuComponent,
   TabComponent,
   TabContainerComponent,
-  TableComponent,
-  DynamicTableArrayComponent,
+  DynamicFormComponent,
+  DynamicFormTableComponent,
+  DynamicFormControlComponent,
 ];

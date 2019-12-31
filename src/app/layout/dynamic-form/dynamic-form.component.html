@@ -1,0 +1,6 @@
+<form nz-form [formGroup]="formGroup" class="am-g" autocomplete="off" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
+        <app-dynamic-form-control [formGroup]="formGroup" [col]="col"></app-dynamic-form-control>
+    </ng-container>
+    <ng-content></ng-content>
+</form>

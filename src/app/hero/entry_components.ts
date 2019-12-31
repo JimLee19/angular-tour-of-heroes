@@ -5,8 +5,6 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
 import { HeroComponent } from './hero.component';
 import { HomeComponent } from './home/home.component';
-import { Route } from '@angular/router';
-import { LayoutComponents } from '../layout/tab/tab-routing.module';
 
 export const TabHeroComponents = [
     { path: 'home', component: HomeComponent },
@@ -16,7 +14,7 @@ export const TabHeroComponents = [
     { path: 'add', component: HeroFormComponent }
 ];
 export const HeroEntryComponents = [
-    ...LayoutComponents,
+   // ...LayoutComponents,
     HomeComponent,
     DashboardComponent,
     HeroDetailComponent,

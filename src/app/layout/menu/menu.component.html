@@ -5,14 +5,14 @@
             <li nz-menu-item [nzPaddingLeft]="menu.level * 24" *ngIf="!menu.children"
                 [nzDisabled]="menu.disabled" [nzSelected]="menu.selected" [nzMatchRouter]="'true'">
                 <a routerLink="{{menu.routeLink}}">
-                    <i nz-icon [type]="menu.icon" *ngIf="menu.icon"></i>
+                    <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
                     <span>{{ menu.title }}</span>
                 </a>
             </li>
             <li nz-submenu [nzPaddingLeft]="menu.level * 24" *ngIf="menu.children" [nzOpen]="menu.open"
                 [nzDisabled]="menu.disabled">
                 <span title>
-                    <i nz-icon [type]="menu.icon" *ngIf="menu.icon"></i>
+                    <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
                     <span>{{ menu.title }}</span>
                 </span>
                 <ul>

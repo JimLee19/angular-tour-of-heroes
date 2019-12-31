@@ -22,6 +22,7 @@ function guid() {
         return v.toString(16);
     });
 }
+/**返回指定key的对象 */
 function certainFunction(obj: object, keys: string[]) {
     return keys.reduce((result, key) => {
         if (obj.hasOwnProperty(key)) {

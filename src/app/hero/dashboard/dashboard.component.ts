@@ -4,6 +4,8 @@ import { HeroService } from '../../services/hero.service';
 import { TabDecorator } from '../../_decorators/tab-component.decorator';
 import imageCompression from '../../common/browser-image-compression';
 import { moneyToUpper } from '../../common/utils';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,20 +15,39 @@ import { moneyToUpper } from '../../common/utils';
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  money: number;
+  groupForm: FormGroup;
+  main: any[];
+  tcl: any[];
+  constructor(private heroService: HeroService,
+    private deviceService: DeviceDetectorService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getHeroes();
+    this.groupForm = this.fb.group({
+      testName: ['', Validators.required],
+      Tcl: this.fb.array([]),
+      Arr: this.fb.array([]) // formarray
+    });
+    this.main = [
+      { propertyName: 'testName', displayName: 'testName', controlType: 'text' },
+    ];
+    this.tcl = [
+      { propertyName: '_expand', displayName: 'expand', controlType: 'expand' },
+      { propertyName: '_rowcheck', displayName: 'rowcheck', controlType: 'rowcheck' },
+      { propertyName: 'name', displayName: 'name', controlType: 'text' },
+      { propertyName: 'power', displayName: 'power', controlType: 'dropdown' },
+      { propertyName: 'alterEgo', displayName: 'alterEgo', controlType: 'text' },
+      { propertyName: 'birthday', displayName: 'birthday', controlType: 'date' },
+    ];
+    const deviceInfo = this.deviceService.getDeviceInfo();
+    console.log(deviceInfo);
   }
 
   getHeroes(): void {
     this.heroService.getHeroes()
       .subscribe(heroes => this.heroes = heroes.slice(1, 5));
-  }
-  upperMoney: string;
-  money: number;
-  upper() {
-    this.upperMoney = moneyToUpper(this.money);
   }
   async handleImageUpload(event: any) {
 

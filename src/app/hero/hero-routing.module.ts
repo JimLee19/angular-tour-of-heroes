@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HeroComponent } from './hero.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TabHeroComponents, } from './entry_components';
 
 // const tabHeroComponents = HeroEntryComponents.filter(x => TabDecorator.getTabMetadata(x) != null).map(x => {
@@ -19,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class HeroRoutingModule { }

@@ -1,12 +1,14 @@
-<nz-table #nzTable [formGroup]="groupForm" [nzData]="values" [nzBordered]="bordered" [nzSimple]="simple"
+<nz-table #nzTable [formGroup]="formGroup" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
     [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
     [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="title"
-    [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)">
+    [nzShowQuickJumper]="'true'" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    [nzTotal]="controls.length">
     <thead>
         <tr>
             <th [attr.colspan]="cols.length" [nzAlign]="'left'">
-                <button nz-button nzType="default" (click)="add()">添加</button>
-                <button nz-button nzType="default" (click)="remove()">删除</button>
+                <button nz-button nzType="default" type="button" (click)="add()">添加</button>
+                <button nz-button nzType="default" type="button" (click)="remove()"
+                    [disabled]="!hasCheckedData">删除</button>
             </th>
         </tr>
         <tr>
@@ -23,18 +25,24 @@
             <tr [formGroupName]="nzTable.nzPageSize*(nzTable.nzPageIndex-1)+i">
                 <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
                     <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="!!data['_expand']"></td>
-                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [(nzChecked)]="!!data['_checked']"
+                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled" [(nzChecked)]="!!data['_checked']"
                         (nzCheckedChange)="refreshStatus()"></td>
                     <td *ngSwitchDefault>
-                        <nz-form-control>
-                            <input [formControlName]="col.propertyName" nz-input [placeholder]="col.propertyName" />
-                        </nz-form-control>
+                        <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
+                        <!-- <ng-container *ngIf="editId !== col.propertyName; else editTpl">
+                            <div (click)="startEdit(col.propertyName, $event)">
+                                {{ data.value[col.propertyName] }}
+                              </div>
+                        </ng-container>
+                        <ng-template #editTpl>
+                            <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
+                        </ng-template> -->
                     </td>
                 </ng-container>
             </tr>
             <tr [nzExpand]="!!data['_expand']">
                 <td></td>
-                <td [attr.colspan]="cols.length-1">{{getExpandContent(data)}}</td>
+                <td [attr.colspan]="cols.length-1">{{expandContent && expandContent(data)}}</td>
             </tr>
         </ng-template>
     </tbody>

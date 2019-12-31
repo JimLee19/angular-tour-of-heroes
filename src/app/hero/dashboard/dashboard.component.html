@@ -10,7 +10,12 @@
 <div>图片压缩</div>
 <input type="file" accept="image/*" (change)="handleImageUpload($event)">
 <div>金额转大写
-  <input type="number" [(ngModel)]="money"  (change)="upper()"/>
-  <p>{{upperMoney}}</p>
+  <input type="number" [(ngModel)]="money" />
+  <p>{{money | cny}}</p>
 </div>
-<app-table></app-table>
+<app-dynamic-form [formGroup]="groupForm" [cols]="main">
+  <app-dynamic-form-table [formGroup]="groupForm" formArrayName="Tcl" [cols]="tcl"></app-dynamic-form-table> 
+  <nz-form-control>
+    <button nz-button nzType="primary">提交</button>
+</nz-form-control>
+</app-dynamic-form>

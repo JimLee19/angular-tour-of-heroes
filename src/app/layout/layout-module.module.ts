@@ -1,26 +1,38 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { LayoutComponents } from './tab/tab-routing.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { SharedModule } from '../_modules/shared.module';
+import { FeatureModule } from '../_modules/feature.module';
+import { RouterModule } from '@angular/router';
 
 
-/** 配置 angular i18n **/
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
 
 
 
 @NgModule({
-  declarations: [],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedModule,
+    FeatureModule,
+  ],
+  declarations: [
+    ...LayoutComponents,
+  ],
   exports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgZorroAntdModule, /** 导入 ng-zorro-antd 模块 **/
+    SharedModule,
+    FeatureModule,
+    ...LayoutComponents,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: zh_CN }, /** 配置 ng-zorro-antd 国际化（文案 及 日期） **/
   ],
 })
-export class LayoutModuleModule { }
+export class LayoutModuleModule {
+  // static forChild(providers = []): ModuleWithProviders {
+  //   return {
+  //     ngModule: LayoutModuleModule,
+  //     providers: [...providers]
+  //   };
+  // }
+}
