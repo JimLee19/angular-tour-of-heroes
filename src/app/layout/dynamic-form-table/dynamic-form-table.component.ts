@@ -3,6 +3,7 @@ import { FormGroup, FormArray } from '@angular/forms';
 import { ModelFieldService } from '../../services/model-field.service';
 import { NzTableComponent } from 'ng-zorro-antd';
 import { BehaviorSubject } from 'rxjs';
+import { ModelField } from '../../_models/model-field';
 
 @Component({
   selector: 'app-dynamic-form-table',
@@ -24,7 +25,7 @@ export class DynamicFormTableComponent implements OnInit {
   indeterminate = false;
   @Input() formArrayName: string;
   @Input() formGroup: FormGroup;
-  @Input() cols: any[];
+  @Input() cols: ModelField[];
   @ViewChild('nzTable', { static: true }) table: NzTableComponent;
   @Input() expandContent: (item: any) => string;
   editId: string | null;

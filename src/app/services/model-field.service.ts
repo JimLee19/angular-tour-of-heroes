@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, Validators, FormArray } from '@angular/forms';
+import { ModelField } from '../_models/model-field';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,14 @@ import { FormGroup, FormControl, ValidatorFn, Validators, FormArray } from '@ang
 export class ModelFieldService {
 
   constructor() { }
-  dataToFormArray(fields: any[], dataSource: any[]) {
+  dataToFormArray(fields: ModelField[], dataSource: any[]) {
     return dataSource.reduce((arr, data) => {
       const item = this.toFormGroup(fields, data);
       arr.push(item);
       return arr;
     }, []);
   }
-  toFormGroup(fields: any[], value?: any) {
+  toFormGroup(fields: ModelField[], value?: any) {
     fields = fields.filter(y => !y.propertyName.startsWith('_')) || [];
     const arr = fields.reduce<{ [prop: string]: any }>((item, field) => {
       const defaultValue = value ? value[field.propertyName] : field.defaultValue;
@@ -25,9 +26,8 @@ export class ModelFieldService {
     return group;
   }
 
-  getValidators(field: any) {
+  getValidators(field: ModelField) {
     const vds: ValidatorFn[] = [];
-    vds.push(Validators.required);
     if (field.isRequired) { vds.push(Validators.required); }
     return vds;
   }
