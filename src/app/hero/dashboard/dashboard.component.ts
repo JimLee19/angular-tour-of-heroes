@@ -6,6 +6,7 @@ import imageCompression from '../../common/browser-image-compression';
 import { moneyToUpper } from '../../common/utils';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { ModelField } from '../../_models/model-field';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
   money: number;
   groupForm: FormGroup;
   main: any[];
-  tcl: any[];
+  tcl: ModelField[];
   constructor(private heroService: HeroService,
     private deviceService: DeviceDetectorService,
     private fb: FormBuilder) { }
