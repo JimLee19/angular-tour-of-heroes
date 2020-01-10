@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { FormGroup, FormArray, AbstractControl } from '@angular/forms';
 import { ModelFieldService } from '../../services/model-field.service';
-import { NzTableComponent } from 'ng-zorro-antd';
+import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
 import { BehaviorSubject } from 'rxjs';
 import { ModelField } from '../../_models/model-field';
+import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
 
 @Component({
   selector: 'app-dynamic-form-table',
@@ -26,12 +27,29 @@ export class DynamicFormTableComponent implements OnInit {
   @Input() formArrayName: string;
   @Input() formGroup: FormGroup;
   @Input() cols: ModelField[];
+  get showCols() {
+    // tslint:disable-next-line: no-bitwise
+    return this.cols.filter(x => x.show & 1);
+  }
   @ViewChild('nzTable', { static: true }) table: NzTableComponent;
-  @Input() expandContent: (item: any) => string;
+  // @Input() expandContent: (item: any) => string;
   editId: string | null;
+  @ViewChild(NzInputDirective, { static: false, read: ElementRef }) inputElement: ElementRef;
+
+  @HostListener('window:click', ['$event'])
+  handleClick(e: MouseEvent): void {
+    if (this.editId && this.inputElement && this.inputElement.nativeElement !== e.target) {
+      this.editId = null;
+    }
+  }
   constructor(private modelService: ModelFieldService) { }
 
   ngOnInit() {
+  }
+  expandContent(rowId: number) {
+    const expand = this.cols.find(x => x.propertyName === '_expand');
+    const vaule = this.controls[rowId].value;
+    return expand && expand.callback && expand.callback(vaule);
   }
   get arr(): FormArray {
     return this.formGroup.get(this.formArrayName) as FormArray;
@@ -42,7 +60,9 @@ export class DynamicFormTableComponent implements OnInit {
   get controls() {
     return this.arr.controls;
   }
-
+  getControl(rowId: number, prop: string) {
+    return this.controls[rowId].get(prop);
+  }
   getKey(item: FormArray) {
     // console.log(item);
     const keys = Object.keys(item.controls);
@@ -50,7 +70,7 @@ export class DynamicFormTableComponent implements OnInit {
   }
   add() {
     this.arr.push(this.modelService.toFormGroup(this.cols)); // 推送form新表单
-   // this.controls[0].get('name').disable();
+    // this.controls[0].get('name').disable();
     this.refreshTable();
   }
   remove() {
@@ -94,9 +114,14 @@ export class DynamicFormTableComponent implements OnInit {
     });
     this.refreshStatus();
   }
-  startEdit(id: string, event: MouseEvent): void {
+  startEdit(control: AbstractControl, col: ModelField, event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    this.editId = id;
+    const index = this.controls.indexOf(control);
+    this.editId = `${col.propertyName}_${index}`;
+  }
+  getEditId(control: AbstractControl, col: ModelField) {
+    const index = this.controls.indexOf(control);
+    return `${col.propertyName}_${index}`;
   }
 }

@@ -34,13 +34,16 @@ export class DashboardComponent implements OnInit {
     this.main = [
       { propertyName: 'testName', displayName: 'testName', controlType: 'text' },
     ];
+    const expandContent = (data: any) => {
+      return `${data['name']} ${data['alterEgo']}`;
+    };
     this.tcl = [
-      { propertyName: '_expand', displayName: 'expand', controlType: 'expand' },
-      { propertyName: '_rowcheck', displayName: 'rowcheck', controlType: 'rowcheck' },
-      { propertyName: 'name', displayName: 'name', controlType: 'text' },
-      { propertyName: 'power', displayName: 'power', controlType: 'dropdown' },
-      { propertyName: 'alterEgo', displayName: 'alterEgo', controlType: 'text' },
-      { propertyName: 'birthday', displayName: 'birthday', controlType: 'date' },
+      { propertyName: '_expand', displayName: 'expand', controlType: 'expand', show: 1, callback: expandContent },
+      { propertyName: '_rowcheck', displayName: 'rowcheck', controlType: 'rowcheck', show: 1 },
+      { propertyName: 'name', displayName: 'name', controlType: 'text', show: 1, defaultValue: 'sego' },
+      { propertyName: 'power', displayName: 'power', controlType: 'dropdown', show: 1 },
+      { propertyName: 'alterEgo', displayName: 'alterEgo', controlType: 'text', show: 0, defaultValue: '23' },
+      { propertyName: 'birthday', displayName: 'birthday', controlType: 'date', show: 1 },
     ];
     const deviceInfo = this.deviceService.getDeviceInfo();
     console.log(deviceInfo);

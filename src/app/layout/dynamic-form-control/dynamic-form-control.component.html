@@ -1,5 +1,5 @@
 <ng-container [formGroup]="formGroup" [ngSwitch]="col.controlType">
     <nz-form-control >
-        <input [formControlName]="col.propertyName" nz-input [placeholder]="col.propertyName" *ngSwitchDefault />
+        <input [formControlName]="col.propertyName" nz-input [placeholder]="placeholder" *ngSwitchDefault />
     </nz-form-control>
 </ng-container>

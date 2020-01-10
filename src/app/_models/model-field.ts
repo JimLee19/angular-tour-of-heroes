@@ -7,4 +7,5 @@ export class ModelField {
     show?: number;
     status?: number;
     isRequired?: boolean;
+    callback?: (data: any) => string;
 }

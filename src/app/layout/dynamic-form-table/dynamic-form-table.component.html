@@ -12,7 +12,7 @@
             </th>
         </tr>
         <tr>
-            <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
+            <ng-container *ngFor="let col of showCols" [ngSwitch]="col.controlType">
                 <th nzWidth="50px" nzShowExpand *ngSwitchCase="'expand'"></th>
                 <th nzWidth="62px" nzShowCheckbox *ngSwitchCase="'rowcheck'" [(nzChecked)]="allChecked"
                     [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
@@ -23,26 +23,26 @@
     <tbody [formArrayName]="formArrayName">
         <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
             <tr [formGroupName]="nzTable.nzPageSize*(nzTable.nzPageIndex-1)+i">
-                <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
+                <ng-container *ngFor="let col of showCols" [ngSwitch]="col.controlType">
                     <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="!!data['_expand']"></td>
-                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled" [(nzChecked)]="!!data['_checked']"
-                        (nzCheckedChange)="refreshStatus()"></td>
+                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled"
+                        [(nzChecked)]="!!data['_checked']" (nzCheckedChange)="refreshStatus()"></td>
                     <td *ngSwitchDefault>
-                        <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
-                        <!-- <ng-container *ngIf="editId !== col.propertyName; else editTpl">
-                            <div (click)="startEdit(col.propertyName, $event)">
+                        <!-- <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control> -->
+                        <ng-container *ngIf="editId !== getEditId(data,col); else editTpl">
+                            <div (click)="startEdit(data,col, $event)">
                                 {{ data.value[col.propertyName] }}
-                              </div>
+                            </div>
                         </ng-container>
                         <ng-template #editTpl>
                             <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
-                        </ng-template> -->
+                        </ng-template>
                     </td>
                 </ng-container>
             </tr>
             <tr [nzExpand]="!!data['_expand']">
                 <td></td>
-                <td [attr.colspan]="cols.length-1">{{expandContent && expandContent(data)}}</td>
+                <td [attr.colspan]="cols.length-1">{{ expandContent(i)}}</td>
             </tr>
         </ng-template>
     </tbody>
