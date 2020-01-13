@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { FormGroup, FormArray, AbstractControl, FormBuilder } from '@angular/forms';
 import { ModelFieldService } from '../../services/model-field.service';
 import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
 import { BehaviorSubject } from 'rxjs';
@@ -24,8 +24,8 @@ export class DynamicFormTableComponent implements OnInit {
   footer = '';
   allChecked = false;
   indeterminate = false;
-  @Input() formArrayName: string;
-  @Input() formGroup: FormGroup;
+  @Input() tableArrayName: string;
+  group: FormGroup;
   @Input() cols: ModelField[];
   get showCols() {
     // tslint:disable-next-line: no-bitwise
@@ -42,9 +42,11 @@ export class DynamicFormTableComponent implements OnInit {
       this.editId = null;
     }
   }
-  constructor(private modelService: ModelFieldService) { }
+  constructor(private fb: FormBuilder, private modelService: ModelFieldService) { }
 
   ngOnInit() {
+    const group = this.fb.group({ [this.tableArrayName]: this.fb.array([]) });
+    this.group = group;
   }
   expandContent(rowId: number) {
     const expand = this.cols.find(x => x.propertyName === '_expand');
@@ -52,7 +54,7 @@ export class DynamicFormTableComponent implements OnInit {
     return expand && expand.callback && expand.callback(vaule);
   }
   get arr(): FormArray {
-    return this.formGroup.get(this.formArrayName) as FormArray;
+    return this.group.get(this.tableArrayName) as FormArray;
   }
   get dataSource(): any[] {
     return this.arr.value;
@@ -69,7 +71,7 @@ export class DynamicFormTableComponent implements OnInit {
     return keys;
   }
   add() {
-    this.arr.push(this.modelService.toFormGroup(this.cols)); // 推送form新表单
+    this.arr.push(this.modelService.createGroup(this.cols)); // 推送form新表单
     // this.controls[0].get('name').disable();
     this.refreshTable();
   }

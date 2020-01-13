@@ -1,6 +1,9 @@
-<form nz-form [formGroup]="formGroup" class="am-g" autocomplete="off" (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let col of cols" [ngSwitch]="col.controlType">
-        <app-dynamic-form-control [formGroup]="formGroup" [col]="col"></app-dynamic-form-control>
+<form nz-form [nzLayout]="'inline'" [formGroup]="form" autocomplete="off" (ngSubmit)="handleSubmit($event)">
+    <ng-container *ngFor="let col of cols">
+        <nz-form-item>
+            <nz-form-label >{{col.displayName}}</nz-form-label>
+            <app-dynamic-form-control [group]="form" [column]="col" ></app-dynamic-form-control>    
+        </nz-form-item>
     </ng-container>
     <ng-content></ng-content>
 </form>

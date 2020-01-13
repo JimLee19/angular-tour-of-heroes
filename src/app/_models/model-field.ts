@@ -1,3 +1,5 @@
+import { FormGroup } from '@angular/forms';
+
 export class ModelField {
     propertyName: string;
     displayName: string;
@@ -8,4 +10,8 @@ export class ModelField {
     status?: number;
     isRequired?: boolean;
     callback?: (data: any) => string;
+}
+export interface Field {
+    column: ModelField;
+    group: FormGroup;
 }

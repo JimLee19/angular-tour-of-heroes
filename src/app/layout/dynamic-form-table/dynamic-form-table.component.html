@@ -1,4 +1,4 @@
-<nz-table #nzTable [formGroup]="formGroup" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
+<nz-table #nzTable [formGroup]="group" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
     [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
     [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="title"
     [nzShowQuickJumper]="'true'" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)"
@@ -20,7 +20,7 @@
             </ng-container>
         </tr>
     </thead>
-    <tbody [formArrayName]="formArrayName">
+    <tbody [formArrayName]="tableArrayName">
         <ng-template ngFor let-data [ngForOf]="nzTable.data" let-i="index">
             <tr [formGroupName]="nzTable.nzPageSize*(nzTable.nzPageIndex-1)+i">
                 <ng-container *ngFor="let col of showCols" [ngSwitch]="col.controlType">
@@ -28,15 +28,15 @@
                     <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled"
                         [(nzChecked)]="!!data['_checked']" (nzCheckedChange)="refreshStatus()"></td>
                     <td *ngSwitchDefault>
-                        <!-- <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control> -->
-                        <ng-container *ngIf="editId !== getEditId(data,col); else editTpl">
+                        <app-dynamic-form-control [group]="data" [column]="col" ></app-dynamic-form-control>    
+                        <!-- <ng-container *ngIf="editId !== getEditId(data,col); else editTpl">
                             <div (click)="startEdit(data,col, $event)">
                                 {{ data.value[col.propertyName] }}
                             </div>
                         </ng-container>
                         <ng-template #editTpl>
                             <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
-                        </ng-template>
+                        </ng-template> -->
                     </td>
                 </ng-container>
             </tr>

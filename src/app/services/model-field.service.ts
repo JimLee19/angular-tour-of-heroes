@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, ValidatorFn, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, ValidatorFn, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ModelField } from '../_models/model-field';
 
 @Injectable({
@@ -7,27 +7,28 @@ import { ModelField } from '../_models/model-field';
 })
 export class ModelFieldService {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
   dataToFormArray(fields: ModelField[], dataSource: any[]) {
     return dataSource.reduce((arr, data) => {
-      const item = this.toFormGroup(fields, data);
+      const item = this.createGroup(fields, data);
       arr.push(item);
       return arr;
     }, []);
   }
-  toFormGroup(fields: ModelField[], value?: any) {
+  createGroup(fields: ModelField[], value?: any) {
     fields = fields.filter(y => !y.propertyName.startsWith('_')) || [];
-    const arr = fields.reduce<{ [prop: string]: any }>((item, field) => {
-      const defaultValue = value ? value[field.propertyName] : field.defaultValue;
-      item[field.propertyName] = new FormControl({ value: defaultValue, disabled: false }, this.getValidators(field));
-      return item;
-    }, {});
-    const group = new FormGroup(arr);
+    const group = this.fb.group({});
+    fields.forEach(control => group.addControl(control.propertyName, this.createControl(control)));
     return group;
   }
 
+  createControl(field: ModelField) {
+    const { status, defaultValue } = field;
+    return this.fb.control({ disabled: status === 1, value: defaultValue }, this.getValidators(field));
+  }
   getValidators(field: ModelField) {
     const vds: ValidatorFn[] = [];
+    vds.push(Validators.required); // todo: delete
     if (field.isRequired) { vds.push(Validators.required); }
     return vds;
   }

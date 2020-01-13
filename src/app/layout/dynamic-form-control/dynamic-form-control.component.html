@@ -1,5 +1,8 @@
-<ng-container [formGroup]="formGroup" [ngSwitch]="col.controlType">
-    <nz-form-control >
-        <input [formControlName]="col.propertyName" nz-input [placeholder]="placeholder" *ngSwitchDefault />
-    </nz-form-control>
+<ng-container [formGroup]="group" [ngSwitch]="controlType">       
+        
+        <nz-form-control>
+                <input [type]="controlType" [formControlName]="column.propertyName" nz-input [placeholder]="placeholder"
+                        *ngSwitchDefault />
+                                
+        </nz-form-control>  
 </ng-container>

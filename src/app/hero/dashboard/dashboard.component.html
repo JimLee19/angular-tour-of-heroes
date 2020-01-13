@@ -13,8 +13,8 @@
   <input type="number" [(ngModel)]="money" />
   <p>{{money | cny}}</p>
 </div>
-<app-dynamic-form [formGroup]="groupForm" [cols]="main">
-  <app-dynamic-form-table [formGroup]="groupForm" formArrayName="Tcl" [cols]="tcl"></app-dynamic-form-table> 
+<app-dynamic-form #f [cols]="main">
+  <app-dynamic-form-table tableArrayName="Tcl" [cols]="tcl"></app-dynamic-form-table> 
   <nz-form-control>
     <button nz-button nzType="primary">提交</button>
 </nz-form-control>

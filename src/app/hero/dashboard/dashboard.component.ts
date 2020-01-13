@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
     this.groupForm = this.fb.group({
-      testName: ['', Validators.required],
+      testName: ['',  [Validators.required]],
       Tcl: this.fb.array([]),
       Arr: this.fb.array([]) // formarray
     });

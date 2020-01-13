@@ -12,6 +12,7 @@ import { ForbiddenNameDirective } from '../_directives/forbidden-name.directive'
 import { IdentityRevealedValidatorDirective } from '../_directives/identity-revealed-validator.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { DynamicFieldDirective } from '../_directives/dynamic-field.directive';
 
 
 
@@ -23,6 +24,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     UnlessDirective,
     ForbiddenNameDirective,
     IdentityRevealedValidatorDirective,
+    DynamicFieldDirective,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     UnlessDirective,
     ForbiddenNameDirective,
     IdentityRevealedValidatorDirective,
+    DynamicFieldDirective,
   ]
 })
 /**共享模块 */
