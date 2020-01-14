@@ -10,12 +10,13 @@ export class ModelFieldService {
   constructor(private fb: FormBuilder) { }
   dataToFormArray(fields: ModelField[], dataSource: any[]) {
     return dataSource.reduce((arr, data) => {
-      const item = this.createGroup(fields, data);
+      const item = this.createGroup(fields);
+      item.patchValue(data);
       arr.push(item);
       return arr;
     }, []);
   }
-  createGroup(fields: ModelField[], value?: any) {
+  createGroup(fields: ModelField[]) {
     fields = fields.filter(y => !y.propertyName.startsWith('_')) || [];
     const group = this.fb.group({});
     fields.forEach(control => group.addControl(control.propertyName, this.createControl(control)));
