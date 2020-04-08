@@ -35,17 +35,6 @@ function float2Fixed(num: number): number {
     return dLen > 0 ? strip(num * Math.pow(10, dLen)) : num;
 }
 
-/**
- * 检测数字是否越界，如果越界给出提示
- * @param {*number} num 输入数
- */
-function checkBoundary(num: number) {
-    if (_boundaryCheckingState) {
-        if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
-            console.warn(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
-        }
-    }
-}
 
 /**
  * 精确乘法
@@ -115,6 +104,17 @@ let _boundaryCheckingState = true;
  */
 function enableBoundaryChecking(flag = true) {
     _boundaryCheckingState = flag;
+}
+/**
+ * 检测数字是否越界，如果越界给出提示
+ * @param {*number} num 输入数
+ */
+function checkBoundary(num: number) {
+    if (_boundaryCheckingState) {
+        if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
+            console.warn(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
+        }
+    }
 }
 export { strip, plus, minus, times, divide, round, digitLength, float2Fixed, enableBoundaryChecking };
 export default { strip, plus, minus, times, divide, round, digitLength, float2Fixed, enableBoundaryChecking };
