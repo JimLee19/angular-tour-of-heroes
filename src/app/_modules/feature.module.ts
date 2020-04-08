@@ -25,7 +25,13 @@ export class FeatureModule {
   static forRoot(providers = []): ModuleWithProviders {
     return {
       ngModule: FeatureModule,
-      providers: [...providers]
+      providers: [
+        ...providers,
+        {
+          provide: 'ZorroAntd_CONFIG',
+          useValue: 'http://localhost:4200/'
+        }
+      ]
     };
   }
  }

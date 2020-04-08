@@ -5,17 +5,17 @@ import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
 import { BehaviorSubject } from 'rxjs';
 import { ModelField } from '../../_models/model-field';
 import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
+import { ComponentBase } from '../component.base';
 
 @Component({
   selector: 'app-dynamic-form-table',
   templateUrl: './dynamic-form-table.component.html',
   styleUrls: ['./dynamic-form-table.component.less']
 })
-export class DynamicFormTableComponent implements OnInit {
+export class DynamicFormTableComponent extends ComponentBase implements OnInit {
   displayData: any[] = [];
   pagination = true;
   title = '标题';
-  size = 'small';
   bordered = false;
   loading = false;
   simple = false;
@@ -42,7 +42,7 @@ export class DynamicFormTableComponent implements OnInit {
       this.editId = null;
     }
   }
-  constructor(private fb: FormBuilder, private modelService: ModelFieldService) { }
+  constructor(private fb: FormBuilder, private modelService: ModelFieldService) { super(); }
 
   ngOnInit() {
     const group = this.fb.group({ [this.tableArrayName]: this.fb.array([]) });

@@ -3,6 +3,7 @@ import { TabConfig } from './tab-config';
 import { Router, NavigationEnd, ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart } from '@angular/router';
 import { TabViewService } from '../../services/tab-view.service';
 import { Title } from '@angular/platform-browser';
+import { ComponentBase } from '../component.base';
 
 @Component({
   selector: 'app-tab',
@@ -63,12 +64,12 @@ export class TabComponent implements OnInit {
   template: `<template #container></template>`,
   styles: [``]
 })
-export class TabContainerComponent implements OnInit, OnDestroy {
+export class TabContainerComponent extends ComponentBase implements OnInit, OnDestroy {
 
   @Input() tabConfig: TabConfig;
   @ViewChild('container', { read: ViewContainerRef, static: true }) vcRef: ViewContainerRef;
   compRef: ComponentRef<any>;
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { super(); }
   ngOnInit(): void {
     this.loadComponent();
   }

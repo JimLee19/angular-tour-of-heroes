@@ -1,4 +1,4 @@
-<nz-tabset #tabView [nzSelectedIndex]="activeIndex" [nzSize]="'small'">
+<nz-tabset #tabView [nzSelectedIndex]="activeIndex" [nzSize]="size">
   <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [nzDisabled]="tab.disabled" (nzSelect)="handleChange(tab)">
     <ng-template #titleTemplate > 
       <div><i nz-icon [nzType]="tab.icon"></i>{{ tab.header }}

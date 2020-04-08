@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TabViewService } from '../services/tab-view.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -20,3 +20,4 @@ export class LayoutComponent implements OnInit {
     // this.router.navigateByUrl(this.router.url);
   }
 }
+
