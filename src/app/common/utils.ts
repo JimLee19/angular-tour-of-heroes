@@ -30,4 +30,32 @@ function certainFunction(obj: object, keys: string[]) {
         return result;
     }, {});
 }
-export { guid, moneyToUpper, certainFunction };
+function stringToArray(value: string) {
+    if (Array.isArray(value)) { return Array.of(value); }
+    try {
+        return Array.of(JSON.parse(value));
+    } catch {
+        return value.split(',');
+    }
+}
+function getFlags(value: number) {
+    const valueList: number[] = [];
+    if (isNaN(value)) { return valueList; }
+    for (let i = 0, p = 1; p <= value; i++, p = (2 ** i)) {
+        if (hasFlag(value, p)) { valueList.push(p); }
+    }
+    return valueList.map(v => +v);
+}
+function hasFlag(left: number, value: number) {
+    // tslint:disable-next-line: no-bitwise
+    return (left & value) === value;
+}
+function deleteFlag(left: number, value: number) {
+    // tslint:disable-next-line: no-bitwise
+    return left & ~value;
+}
+function addFlag(left: number, value: number) {
+    // tslint:disable-next-line: no-bitwise
+    return left | value;
+}
+export { guid, moneyToUpper, certainFunction, stringToArray, getFlags, hasFlag };

@@ -6,9 +6,12 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "moduleResolution": "node", //模块的解析
+    "emitDecoratorMetadata": true, //给源码里的装饰器声明加上设计类型元数据。查看issue #2577了解更多信息。
     "experimentalDecorators": true,
+    "noImplicitAny": true, //参数必须设置类型
+    "removeComments": true, //编译 js 的时候，删除掉注释
+    "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
@@ -16,9 +19,17 @@
     "lib": [
       "es2017",
       "dom",
-     // "webworker"
+      // "webworker"
     ],
     "module": "esnext",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      // "@environment/*": [
+      //   "environments/*"
+      // ],
+      // "@helpers/*": [
+      //   "app/_helpers/*"
+      // ]
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
+import { NgModule, ModuleWithProviders, ErrorHandler, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HtmlPipe } from '../_pipes/html.pipe';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -13,6 +13,8 @@ import { IdentityRevealedValidatorDirective } from '../_directives/identity-reve
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { DynamicFieldDirective } from '../_directives/dynamic-field.directive';
+import { MultiSelectParsePipe } from '../_pipes/multi-select-parse.pipe';
+import { MultiSelectDirective, DynamicFormTableDirective } from '../_directives/multi-select.directive';
 
 
 
@@ -20,11 +22,14 @@ import { DynamicFieldDirective } from '../_directives/dynamic-field.directive';
   declarations: [
     HtmlPipe,
     CnyPipe,
+    MultiSelectParsePipe,
     HighlightDirective,
     UnlessDirective,
     ForbiddenNameDirective,
     IdentityRevealedValidatorDirective,
     DynamicFieldDirective,
+    MultiSelectDirective,
+    DynamicFormTableDirective,
   ],
   imports: [
     CommonModule,
@@ -39,16 +44,19 @@ import { DynamicFieldDirective } from '../_directives/dynamic-field.directive';
     ReactiveFormsModule,
     HtmlPipe,
     CnyPipe,
+    MultiSelectParsePipe,
     HighlightDirective,
     UnlessDirective,
     ForbiddenNameDirective,
     IdentityRevealedValidatorDirective,
     DynamicFieldDirective,
+    MultiSelectDirective,
+    DynamicFormTableDirective,
   ]
 })
 /**共享模块 */
 export class SharedModule {
-  static forRoot(providers = []): ModuleWithProviders {
+  static forRoot(providers: Provider[] = []): ModuleWithProviders {
     return {
       ngModule: SharedModule,
       providers: [

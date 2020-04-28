@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { FormGroup, FormArray, AbstractControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Optional, Host, ViewContainerRef } from '@angular/core';
+import { FormGroup, FormArray, AbstractControl, FormBuilder, ControlContainer } from '@angular/forms';
 import { ModelFieldService } from '../../services/model-field.service';
 import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
 import { BehaviorSubject } from 'rxjs';
 import { ModelField } from '../../_models/model-field';
 import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
 import { ComponentBase } from '../component.base';
+import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 
 @Component({
   selector: 'app-dynamic-form-table',
@@ -25,12 +26,13 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
   allChecked = false;
   indeterminate = false;
   @Input() tableArrayName: string;
-  group: FormGroup;
+  @Input() group: FormGroup;
   @Input() cols: ModelField[];
   get showCols() {
     // tslint:disable-next-line: no-bitwise
     return this.cols.filter(x => x.show & 1);
   }
+  @Input() dataSource: any[];
   @ViewChild('nzTable', { static: true }) table: NzTableComponent;
   // @Input() expandContent: (item: any) => string;
   editId: string | null;
@@ -42,11 +44,16 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
       this.editId = null;
     }
   }
-  constructor(private fb: FormBuilder, private modelService: ModelFieldService) { super(); }
+  constructor(private fb: FormBuilder,
+    private viewContainerRef: ViewContainerRef,
+    private modelService: ModelFieldService) {
+    super();
+  }
 
   ngOnInit() {
-    const group = this.fb.group({ [this.tableArrayName]: this.fb.array([]) });
-    this.group = group;
+    const arr = this.modelService.buildFormArray(this.cols, this.dataSource);
+    this.group.addControl(this.tableArrayName, arr);
+    console.log(this.viewContainerRef);
   }
   expandContent(rowId: number) {
     const expand = this.cols.find(x => x.propertyName === '_expand');
@@ -54,24 +61,20 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
     return expand && expand.callback && expand.callback(vaule);
   }
   get arr(): FormArray {
-    return this.group.get(this.tableArrayName) as FormArray;
-  }
-  get dataSource(): any[] {
-    return this.arr.value;
+    return <FormArray>this.group.get(this.tableArrayName);
   }
   get controls() {
-    return this.arr.controls;
+    return this.arr && this.arr.controls || [];
   }
   getControl(rowId: number, prop: string) {
     return this.controls[rowId].get(prop);
   }
   getKey(item: FormArray) {
-    // console.log(item);
     const keys = Object.keys(item.controls);
     return keys;
   }
   add() {
-    this.arr.push(this.modelService.createGroup(this.cols)); // 推送form新表单
+    this.arr.push(this.modelService.createGroup(this.cols));
     // this.controls[0].get('name').disable();
     this.refreshTable();
   }

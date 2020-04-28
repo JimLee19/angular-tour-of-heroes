@@ -55,7 +55,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return throwError({ status: 401, error: { message: 'Unauthorised' } });
         }
 
-        function error(message) {
+        function error(message: any) {
             return throwError({ status: 400, error: { message } });
         }
     }

@@ -8,13 +8,13 @@ import { ModelField } from '../_models/model-field';
 export class ModelFieldService {
 
   constructor(private fb: FormBuilder) { }
-  dataToFormArray(fields: ModelField[], dataSource: any[]) {
-    return dataSource.reduce((arr, data) => {
+  buildFormArray(fields: ModelField[], dataSource: any[] = []) {
+    const arrs = dataSource.map(data => {
       const item = this.createGroup(fields);
       item.patchValue(data);
-      arr.push(item);
-      return arr;
-    }, []);
+      return item;
+    });
+    return this.fb.array(arrs);
   }
   createGroup(fields: ModelField[]) {
     fields = fields.filter(y => !y.propertyName.startsWith('_')) || [];
@@ -22,7 +22,6 @@ export class ModelFieldService {
     fields.forEach(control => group.addControl(control.propertyName, this.createControl(control)));
     return group;
   }
-
   createControl(field: ModelField) {
     const { status, defaultValue } = field;
     return this.fb.control({ disabled: status === 1, value: defaultValue }, this.getValidators(field));

@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
+import { NgModule, ModuleWithProviders, Optional, SkipSelf, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,7 +32,7 @@ export class CoreModule {
       throw new Error('CoreModule 只能在 AppModule 中加载，且仅能被加载一次。');
     }
   }
-  static forRoot(providers = []): ModuleWithProviders {
+  static forRoot(providers: Provider[] = []): ModuleWithProviders {
     return {
       ngModule: CoreModule,
       providers: [

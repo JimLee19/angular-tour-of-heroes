@@ -17,20 +17,16 @@ export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
   money: number;
-  groupForm: FormGroup;
-  main: any[];
+  main: ModelField[];
   tcl: ModelField[];
+  data: any;
   constructor(private heroService: HeroService,
     private deviceService: DeviceDetectorService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getHeroes();
-    this.groupForm = this.fb.group({
-      testName: ['',  [Validators.required]],
-      Tcl: this.fb.array([]),
-      Arr: this.fb.array([]) // formarray
-    });
+    this.data = { testName: '345', Tcl: [{ name: '', power: ['a'] }] };
     this.main = [
       { propertyName: 'testName', displayName: 'testName', controlType: 'text' },
     ];
@@ -41,12 +37,13 @@ export class DashboardComponent implements OnInit {
       { propertyName: '_expand', displayName: 'expand', controlType: 'expand', show: 1, callback: expandContent },
       { propertyName: '_rowcheck', displayName: 'rowcheck', controlType: 'rowcheck', show: 1 },
       { propertyName: 'name', displayName: 'name', controlType: 'text', show: 1, defaultValue: 'sego' },
-      { propertyName: 'power', displayName: 'power', controlType: 'dropdown', show: 1 },
+      { propertyName: 'power', displayName: 'power', controlType: 'dropdown', show: 1, Attrs: [{ key: 'mode', value: 'multiple' }] },
       { propertyName: 'alterEgo', displayName: 'alterEgo', controlType: 'text', show: 0, defaultValue: '23' },
       { propertyName: 'birthday', displayName: 'birthday', controlType: 'date', show: 1 },
     ];
     const deviceInfo = this.deviceService.getDeviceInfo();
     console.log(deviceInfo);
+
   }
 
   getHeroes(): void {
@@ -72,5 +69,8 @@ export class DashboardComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+  onSubmit(value: any) {
+    console.log(this.data);
   }
 }

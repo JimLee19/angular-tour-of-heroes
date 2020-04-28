@@ -1,4 +1,4 @@
-<nz-table #nzTable [formGroup]="group" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
+<nz-table #nzTable  [formGroup]="group" [(nzData)]="controls" [nzBordered]="bordered" [nzSimple]="simple"
     [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
     [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="title"
     [nzShowQuickJumper]="'true'" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)"

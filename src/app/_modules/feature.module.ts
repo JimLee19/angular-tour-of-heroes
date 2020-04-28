@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, Provider } from '@angular/core';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 
 
@@ -22,7 +22,7 @@ registerLocaleData(zh);
 })
 /**特性模块 */
 export class FeatureModule {
-  static forRoot(providers = []): ModuleWithProviders {
+  static forRoot(providers: Provider[] = []): ModuleWithProviders {
     return {
       ngModule: FeatureModule,
       providers: [
@@ -34,4 +34,4 @@ export class FeatureModule {
       ]
     };
   }
- }
+}
