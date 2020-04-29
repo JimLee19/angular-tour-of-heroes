@@ -11,6 +11,7 @@ import { ComponentBase } from '../component.base';
 export class DynamicFormControlComponent extends ComponentBase implements Field, OnInit {
   @Input() group: FormGroup;
   @Input() column: ModelField;
+  model: any;
   options: SelectItem[] = [{ label: '强力', value: 'a' }];
   get placeholder() {
     return this.column.placeholder || this.column.displayName;

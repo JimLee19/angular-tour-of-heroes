@@ -1,7 +1,7 @@
 <ng-container [formGroup]="group" [ngSwitch]="controlType">
         <nz-form-control>
                 <ng-container *ngSwitchCase="'dropdown'">
-                        <nz-select [formControlName]="column.propertyName" [nzAllowClear]="true"
+                        <nz-select  [formControlName]="column.propertyName" [nzAllowClear]="true"
                                 [nzPlaceHolder]="placeholder" [nzSize]="size" [nzMode]="mode" [nzDisabled]="disabled">
                                 <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value">
                                 </nz-option>

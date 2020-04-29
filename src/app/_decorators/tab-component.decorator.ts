@@ -1,4 +1,4 @@
-import { } from 'reflect-metadata';
+import 'reflect-metadata';
 const TAB_METADATA_KEY = Symbol('TabDecorator');
 interface TabMetadata {
   name: string;
@@ -8,7 +8,7 @@ interface TabMetadata {
 }
 const defaults: TabMetadata = { name: '', path: '', closable: true, disabled: false };
 /**添加Tab信息 */
-export function TabDecorator(value: TabMetadata) {
+export function TabDecorator(value: TabMetadata): ClassDecorator {
   return (target: any) => {
     Reflect.defineMetadata(TAB_METADATA_KEY, { ...defaults, ...value }, target);
   };

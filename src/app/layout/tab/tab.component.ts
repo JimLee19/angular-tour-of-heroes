@@ -10,7 +10,7 @@ import { ComponentBase } from '../component.base';
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.css']
 })
-export class TabComponent implements OnInit {
+export class TabComponent extends ComponentBase implements OnInit {
   // tabItems: TabItem[] = [];
   get tabs(): TabConfig[] {
     return this.tabViewService.getTabs();
@@ -26,6 +26,7 @@ export class TabComponent implements OnInit {
     private route: ActivatedRoute,
     private title: Title,
     private tabViewService: TabViewService) {
+    super();
     // this.router.events.pipe(filter(e => e instanceof RouteConfigLoadStart)).subscribe(e=>console.log(e));
     this.router.events.subscribe((e) => {
       if (e instanceof RouteConfigLoadStart) {

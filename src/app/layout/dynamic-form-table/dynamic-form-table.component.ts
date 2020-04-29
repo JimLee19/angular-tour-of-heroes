@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Optional, Host, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Optional, Host, ViewContainerRef, ViewRef } from '@angular/core';
 import { FormGroup, FormArray, AbstractControl, FormBuilder, ControlContainer } from '@angular/forms';
 import { ModelFieldService } from '../../services/model-field.service';
 import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
@@ -46,6 +46,7 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
   }
   constructor(private fb: FormBuilder,
     private viewContainerRef: ViewContainerRef,
+    private viewRef: ViewRef,
     private modelService: ModelFieldService) {
     super();
   }
@@ -53,7 +54,7 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
   ngOnInit() {
     const arr = this.modelService.buildFormArray(this.cols, this.dataSource);
     this.group.addControl(this.tableArrayName, arr);
-    console.log(this.viewContainerRef);
+    console.log(this.viewRef);
   }
   expandContent(rowId: number) {
     const expand = this.cols.find(x => x.propertyName === '_expand');
@@ -87,9 +88,10 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
     this.arr.removeAt(i); // 根据索引移除对应的表单
   }
   private refreshTable() {
-    this.table.updateFrontPaginationDataIfNeeded();
+
+    // this.table.updateFrontPaginationDataIfNeeded();
     const pageIndex = Math.floor((this.table.nzTotal + this.table.nzPageSize - 1) / this.table.nzPageSize);
-    this.table.emitPageSizeOrIndex(this.table.nzPageSize, pageIndex);
+    // this.table.emitPageSizeOrIndex(this.table.nzPageSize, pageIndex);
   }
   get hasCheckedData() {
     const checkedData = this.getCheckedData();

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent implements OnInit {
-
+  isCollapsed = false;
   menus: any[];
   constructor() { }
 
