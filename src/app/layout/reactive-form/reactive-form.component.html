@@ -2,7 +2,7 @@
     <ng-container *ngFor="let col of cols">
         <nz-form-item>
             <nz-form-label >{{col.displayName}}</nz-form-label>
-            <app-dynamic-form-control [group]="form" [column]="col" ></app-dynamic-form-control>    
+            <app-reactive-control [group]="form" [column]="col" ></app-reactive-control>    
         </nz-form-item>
     </ng-container>
     <ng-content></ng-content>

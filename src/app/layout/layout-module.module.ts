@@ -4,11 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../_modules/shared.module';
 import { FeatureModule } from '../_modules/feature.module';
 import { RouterModule } from '@angular/router';
-import { TemplateFormComponent } from './template-form/template-form.component';
-
-
-
-
 
 @NgModule({
   imports: [
@@ -19,7 +14,6 @@ import { TemplateFormComponent } from './template-form/template-form.component';
   ],
   declarations: [
     ...LayoutComponents,
-    TemplateFormComponent,
   ],
   exports: [
     CommonModule,

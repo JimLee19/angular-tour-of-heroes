@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getHeroes();
-    this.data = { testName: '345', Tcl: [{ name: '', power: ['a'] }] };
+    this.data = { testName: '345', Tcl: [{ name: '', power: ['a'] }], Tcl2: [] };
     this.main = [
       { propertyName: 'testName', displayName: 'testName', controlType: 'text' },
     ];

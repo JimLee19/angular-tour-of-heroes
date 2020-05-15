@@ -22,14 +22,14 @@
       // "webworker"
     ],
     "module": "esnext",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      // "@environment/*": [
-      //   "environments/*"
-      // ],
-      // "@helpers/*": [
-      //   "app/_helpers/*"
-      // ]
+      "@env/*": [
+        "src/environments/*"
+      ],
+      "@helpers": [
+        "src/app/_helpers/index"
+      ]
     }
   }
 }

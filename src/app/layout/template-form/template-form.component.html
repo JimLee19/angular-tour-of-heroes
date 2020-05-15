@@ -1,1 +1,9 @@
-<p>template-form works!</p>
+<form nz-form [nzLayout]="'inline'" autocomplete="off" (ngSubmit)="handleSubmit($event)">
+    <ng-container *ngFor="let col of columns">
+        <nz-form-item>
+            <nz-form-label [nzFor]="col.propertyName">{{col.displayName}}</nz-form-label>
+            <app-template-control [column]="col" [(value)]="model[col.propertyName]"></app-template-control>
+        </nz-form-item>
+    </ng-container>
+    <ng-content></ng-content>
+</form>

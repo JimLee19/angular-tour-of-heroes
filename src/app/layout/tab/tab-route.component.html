@@ -1,0 +1,16 @@
+<nz-tabset #tabView [nzSelectedIndex]="activeIndex" [nzSize]="size">
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [nzDisabled]="tab.disabled"
+        (nzSelect)="handleChange(tab)">
+        <ng-template #titleTemplate>
+            <div><i nz-icon [nzType]="tab.icon"></i>{{ tab.header }}
+                <i *ngIf="tab.closable" nz-icon nzType="close" class="ant-tabs-close-x" (click)="handleClose(tab)"></i>
+            </div>
+        </ng-template>
+    </nz-tab>
+</nz-tabset>
+<div class="tab-content">
+    <!--路由的内容会被显示在这里-->
+    <nz-spin [nzSpinning]="loading">
+        <ng-content></ng-content>
+    </nz-spin>
+</div>

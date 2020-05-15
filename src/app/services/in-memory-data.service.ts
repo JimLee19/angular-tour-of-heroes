@@ -2,8 +2,7 @@ import { Hero } from '../hero/hero';
 
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-export class InMemoryDataService implements InMemoryDbService
-{
+export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
     const heroes = [

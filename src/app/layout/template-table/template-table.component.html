@@ -1,0 +1,44 @@
+<nz-table #templateTable [(nzData)]="values" [nzBordered]="bordered" [nzSimple]="simple" [nzLoading]="loading"
+    [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger" [nzFrontPagination]="pagination"
+    [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="templateTableTitle" [nzShowQuickJumper]="'true'"
+    [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzTotal]="values.length">
+    <thead>
+        <tr>
+            <ng-container *ngFor="let col of showColumns" [ngSwitch]="col.controlType">
+                <th nzWidth="30px" *ngSwitchCase="'expand'"></th>
+                <th nzWidth="30px" nzShowCheckbox *ngSwitchCase="'rowcheck'" [(nzChecked)]="allChecked"
+                    [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th *ngSwitchDefault nzCustomFilter>{{col.displayName}}</th>
+            </ng-container>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-template ngFor let-data [ngForOf]="templateTable.data" let-i="index">
+            <tr class="editable-row" [class.tr-checked]="!!data['_checked']">
+                <ng-container *ngFor="let col of showColumns; let j = index" [ngSwitch]="col.controlType">
+                    <td *ngSwitchCase="'expand'" nzShowExpand [(nzExpand)]="!!data['_expand']"></td>
+                    <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled"
+                        [(nzChecked)]="!!data['_checked']" (nzCheckedChange)="refreshStatus()"></td>
+                    <td *ngSwitchDefault>
+                        <div class="editable-cell" *ngIf="editId!==getEditId(col,j)" (click)="startEdit(getEditId(col,j))">
+                            {{ data[col.propertyName]}} </div>
+                        <app-template-control [column]="col" [(value)]="data[col.propertyName]"
+                            *ngIf="editId===getEditId(col,j)">
+                        </app-template-control>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr [nzExpand]="!!data['_expand']">
+                {{ expandContent(data)}}
+            </tr>
+        </ng-template>
+    </tbody>
+</nz-table>
+<ng-template #templateTableTitle>
+    <div>{{title}}</div>
+    <div style="margin-top:5px; background-color: #fafafa;">
+        <button [nzSize]="size" nz-button nzType="default" type="button" (click)="add()">添加</button>
+        <button [nzSize]="size" nz-button nzType="default" type="button" (click)="remove()"
+            [disabled]="!hasCheckedData">删除</button>
+    </div>
+</ng-template>

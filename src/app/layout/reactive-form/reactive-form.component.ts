@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, forwardRef, ViewChildren, QueryList, Output, EventEmitter, OnChanges, ContentChild, ContentChildren, AfterContentInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DynamicFormTableComponent } from '../dynamic-form-table/dynamic-form-table.component';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 import { ModelField } from '../../_models/model-field';
+import { FormGroup } from '@angular/forms';
+import { ReactiveTableComponent } from '../reactive-table/reactive-table.component';
 import { ModelFieldService } from '../../services/model-field.service';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.less'],
+  selector: 'app-reactive-form',
+  templateUrl: './reactive-form.component.html',
+  styleUrls: ['./reactive-form.component.less']
 })
-export class DynamicFormComponent implements OnInit, OnChanges, AfterContentInit {
+export class ReactiveFormComponent implements OnInit, OnChanges, AfterContentInit {
   @Input() cols: ModelField[];
   form: FormGroup;
   get changes() { return this.form.valueChanges; }
@@ -18,10 +18,12 @@ export class DynamicFormComponent implements OnInit, OnChanges, AfterContentInit
   get value() { return this.form.value; }
   @Input() set value(value: any) {
     this._value = value;
+    this.valueChange.emit(this._value);
   }
+  @Output() valueChange = new EventEmitter<any>();
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
-  @ContentChildren(DynamicFormTableComponent) formTables: QueryList<DynamicFormTableComponent>;
-  constructor(private fb: FormBuilder, private modelService: ModelFieldService) {
+  @ContentChildren(ReactiveTableComponent) formTables: QueryList<ReactiveTableComponent>;
+  constructor(private modelService: ModelFieldService) {
   }
 
   ngOnInit() {
@@ -84,3 +86,4 @@ export class DynamicFormComponent implements OnInit, OnChanges, AfterContentInit
     this.form.controls[name].setValue(value, { emitEvent: true });
   }
 }
+

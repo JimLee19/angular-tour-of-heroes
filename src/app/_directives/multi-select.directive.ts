@@ -1,11 +1,11 @@
-import { Directive, OnInit, OnDestroy, Optional, Host, Input } from '@angular/core';
+import { Directive, OnInit, OnDestroy, Optional, Host, Input, HostListener, ElementRef, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ControlContainer, FormControlDirective, FormControl, FormControlName, FormArray, FormGroup } from '@angular/forms';
 import { NzTreeHigherOrderServiceToken } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
-import { DynamicFormComponent } from '../layout/dynamic-form/dynamic-form.component';
-import { DynamicFormTableComponent } from '../layout/dynamic-form-table/dynamic-form-table.component';
 import { ModelFieldService } from '../services/model-field.service';
 import { ModelField } from '../_models/model-field';
+import { ReactiveFormComponent } from '../layout/reactive-form/reactive-form.component';
+import { ReactiveTableComponent } from '../layout/reactive-table/reactive-table.component';
 
 @Directive({
     // tslint:disable-next-line: directive-selector
@@ -40,17 +40,27 @@ export class MultiSelectDirective implements OnInit, OnDestroy {
 }
 @Directive({
     // tslint:disable-next-line: directive-selector
-    selector: 'app-dynamic-form-table'
+    selector: 'app-reactive-table'
 })
 export class DynamicFormTableDirective implements OnInit {
     @Input() tableArrayName: string;
     @Input() group: FormGroup;
     @Input() cols: ModelField[];
-    constructor(@Optional() @Host() private parent: DynamicFormComponent, @Optional() private table: DynamicFormTableComponent, private modelService: ModelFieldService) {
+    constructor(@Optional() @Host() private parent: ReactiveFormComponent, @Optional() private table: ReactiveTableComponent, private modelService: ModelFieldService) {
         console.dir(this.parent);
     }
     ngOnInit() {
-       // const arr = this.modelService.buildFormArray(this.table.cols, this.parent.value[this.table.tableArrayName]);
-      //  this.table.group.addControl(this.table.tableArrayName, arr);
+        // const arr = this.modelService.buildFormArray(this.table.cols, this.parent.value[this.table.tableArrayName]);
+        //  this.table.group.addControl(this.table.tableArrayName, arr);
+    }
+}
+@Directive({
+    // tslint:disable-next-line: directive-selector
+    selector: 'app-template-control',
+})
+export class EditBehaviorDirective {
+    constructor(private el: ElementRef) { }
+    @HostListener('click', ['$event']) onClick($event: any) {
+        console.log('clicked: ' + $event );
     }
 }

@@ -1,9 +1,13 @@
 import { LayoutComponent } from '../layout.component';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent, TabContainerComponent } from './tab.component';
-import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
-import { DynamicFormTableComponent } from '../dynamic-form-table/dynamic-form-table.component';
-import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
+import { TemplateFormComponent } from '../template-form/template-form.component';
+import { ReactiveFormComponent } from '../reactive-form/reactive-form.component';
+import { ReactiveControlComponent } from '../reactive-control/reactive-control.component';
+import { ReactiveTableComponent } from '../reactive-table/reactive-table.component';
+import { TemplateControlComponent } from '../template-control/template-control.component';
+import { TemplateTableComponent } from '../template-table/template-table.component';
+import { TabRouteComponent } from './tab-route.component';
 
 // @NgModule({
 //   imports: [RouterModule],
@@ -22,8 +26,12 @@ export const LayoutComponents = [
   LayoutComponent,
   MenuComponent,
   TabComponent,
+  TabRouteComponent,
   TabContainerComponent,
-  DynamicFormComponent,
-  DynamicFormTableComponent,
-  DynamicFormControlComponent,
+  TemplateFormComponent,
+  TemplateControlComponent,
+  TemplateTableComponent,
+  ReactiveFormComponent,
+  ReactiveControlComponent,
+  ReactiveTableComponent,
 ];

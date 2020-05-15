@@ -1,16 +1,9 @@
-<nz-table #nzTable  [formGroup]="group" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
+<nz-table #nzTable [formGroup]="group" [nzData]="controls" [nzBordered]="bordered" [nzSimple]="simple"
     [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
-    [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="title"
+    [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzFooter]="footer" [nzTitle]="templateTableTitle"
     [nzShowQuickJumper]="'true'" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)"
     [nzTotal]="controls.length">
     <thead>
-        <tr>
-            <th [attr.colspan]="cols.length" [nzAlign]="'left'">
-                <button [nzSize]="size" nz-button nzType="default" type="button" (click)="add()">添加</button>
-                <button [nzSize]="size" nz-button nzType="default" type="button" (click)="remove()"
-                    [disabled]="!hasCheckedData">删除</button>
-            </th>
-        </tr>
         <tr>
             <ng-container *ngFor="let col of showCols" [ngSwitch]="col.controlType">
                 <th nzWidth="50px" nzShowExpand *ngSwitchCase="'expand'"></th>
@@ -28,14 +21,14 @@
                     <td *ngSwitchCase="'rowcheck'" nzShowCheckbox [nzDisabled]="data.disabled"
                         [(nzChecked)]="!!data['_checked']" (nzCheckedChange)="refreshStatus()"></td>
                     <td *ngSwitchDefault>
-                        <app-dynamic-form-control [group]="data" [column]="col" ></app-dynamic-form-control>    
+                        <app-reactive-control [group]="data" [column]="col"></app-reactive-control>
                         <!-- <ng-container *ngIf="editId !== getEditId(data,col); else editTpl">
                             <div (click)="startEdit(data,col, $event)">
                                 {{ data.value[col.propertyName] }}
                             </div>
                         </ng-container>
                         <ng-template #editTpl>
-                            <app-dynamic-form-control [formGroup]="data" [col]="col"></app-dynamic-form-control>
+                            <app-reactive-control [formGroup]="data" [col]="col"></app-reactive-control>
                         </ng-template> -->
                     </td>
                 </ng-container>
@@ -47,3 +40,12 @@
         </ng-template>
     </tbody>
 </nz-table>
+
+<ng-template #templateTableTitle>
+    <div>{{title}}</div>
+    <div style="margin-top:5px; background-color: #fafafa;">
+        <button [nzSize]="size" nz-button nzType="default" type="button" (click)="add()">添加</button>
+        <button [nzSize]="size" nz-button nzType="default" type="button" (click)="remove()"
+            [disabled]="!hasCheckedData">删除</button>
+    </div>
+</ng-template>

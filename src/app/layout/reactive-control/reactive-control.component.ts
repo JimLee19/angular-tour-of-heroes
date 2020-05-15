@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Directive, ComponentRef, ComponentFactoryResolver, ViewContainerRef, OnChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ModelField, Field, SelectItem } from '../../_models/model-field';
+import { Component, OnInit, Input } from '@angular/core';
 import { ComponentBase } from '../component.base';
+import { Field, ModelField, SelectItem } from '../../_models/model-field';
+import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-dynamic-form-control',
-  templateUrl: './dynamic-form-control.component.html',
-  styleUrls: ['./dynamic-form-control.component.less']
+  selector: 'app-reactive-control',
+  templateUrl: './reactive-control.component.html',
+  styleUrls: ['./reactive-control.component.less']
 })
-export class DynamicFormControlComponent extends ComponentBase implements Field, OnInit {
+export class ReactiveControlComponent extends ComponentBase implements Field, OnInit {
   @Input() group: FormGroup;
   @Input() column: ModelField;
   model: any;

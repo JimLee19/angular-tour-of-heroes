@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { throwIfAlreadyLoaded } from './module-import-guard';
 
 
 
@@ -28,9 +29,7 @@ import { RouterModule } from '@angular/router';
 /**核心模块 */
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    if (parentModule) {
-      throw new Error('CoreModule 只能在 AppModule 中加载，且仅能被加载一次。');
-    }
+    throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
   static forRoot(providers: Provider[] = []): ModuleWithProviders {
     return {

@@ -13,10 +13,22 @@
   <input type="number" [(ngModel)]="money" />
   <p>{{money | cny}}</p>
 </div>
-<app-dynamic-form #f [cols]="main" [value]="data" (submit)="onSubmit($event)">
-  <app-dynamic-form-table   [group]="f.form" tableArrayName="Tcl" [cols]="tcl" [(dataSource)]="data['Tcl']">
-  </app-dynamic-form-table>
+<app-reactive-form #f [cols]="main" [(value)]="data" (submit)="onSubmit($event)">
+  <app-reactive-table [group]="f.form" tableArrayName="Tcl" [cols]="tcl" [(values)]="data['Tcl']">
+  </app-reactive-table>
   <nz-form-control>
     <button nz-button nzType="primary">提交</button>
   </nz-form-control>
-</app-dynamic-form>
+</app-reactive-form>
+<div>
+  <app-template-form [columns]="main" [(model)]="data">
+
+    <app-template-table [columns]="tcl" [(values)]="data['Tcl']">
+    </app-template-table>
+    <app-template-table [columns]="tcl" [(values)]="data['Tcl2']">
+    </app-template-table>
+    <nz-form-control>
+      <button nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </app-template-form>
+</div>

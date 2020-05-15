@@ -9,6 +9,7 @@ import { LayoutModuleModule } from '../layout/layout-module.module';
 
 @NgModule({
   declarations: [LoginComponent],
+  entryComponents: [LoginComponent],
   imports: [
     LayoutModuleModule,
     AccountRoutingModule,

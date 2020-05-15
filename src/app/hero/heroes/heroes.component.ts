@@ -33,13 +33,16 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit() {
     this.getHeroes();
+    const expandContent = (data: any) => {
+      return `${data['name']} ${data['alterEgo']}`;
+    };
     this.cols = [
-      { field: 'expand', header: 'expand', type: 'expand' },
-      { field: 'rowcheck', header: 'rowcheck', type: 'rowcheck' },
-      { field: 'name', header: 'name', type: 'text' },
-      { field: 'power', header: 'power', type: 'dropdown' },
-      { field: 'alterEgo', header: 'alterEgo', type: 'text' },
-      { field: 'birthday', header: 'birthday', type: 'date' },
+      { propertyName: '_expand', displayName: 'expand', controlType: 'expand', show: 1, callback: expandContent },
+      { propertyName: '_rowcheck', displayName: 'rowcheck', controlType: 'rowcheck', show: 1 },
+      { propertyName: 'name', displayName: 'name', controlType: 'text', show: 1 },
+      { propertyName: 'power', displayName: 'power', controlType: 'dropdown', show: 1 },
+      { propertyName: 'alterEgo', displayName: 'alterEgo', controlType: 'text', show: 1 },
+      { propertyName: 'birthday', displayName: 'birthday', controlType: 'date', show: 1 },
     ];
   }
   getExpandContent(data: any) {

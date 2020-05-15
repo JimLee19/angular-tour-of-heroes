@@ -3,6 +3,7 @@ import { HeroEntryComponents } from '../hero/entry_components';
 import { TabDecorator } from '../_decorators/tab-component.decorator';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TabConfig } from '../layout/tab/tab-config';
+import { CacheRouteReuseStrategy } from '../layout/tab/cache-route-reuse-strategy';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,8 @@ export class TabViewService {
   }
   removeTab(key: string) {
     const i = this.getIndex(key);
+    const url = decodeURIComponent(window.atob(key));
+    CacheRouteReuseStrategy.deleteRouteSnapshot(url);
     this.tabs.splice(i, 1);
     return i;
   }

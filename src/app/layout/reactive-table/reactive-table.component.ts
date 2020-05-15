@@ -1,19 +1,16 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Optional, Host, ViewContainerRef, ViewRef } from '@angular/core';
-import { FormGroup, FormArray, AbstractControl, FormBuilder, ControlContainer } from '@angular/forms';
-import { ModelFieldService } from '../../services/model-field.service';
-import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
-import { BehaviorSubject } from 'rxjs';
-import { ModelField } from '../../_models/model-field';
-import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
 import { ComponentBase } from '../component.base';
-import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
+import { FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { ModelField } from '../../_models/model-field';
+import { NzTableComponent, NzInputDirective } from 'ng-zorro-antd';
+import { ModelFieldService } from '../../services/model-field.service';
 
 @Component({
-  selector: 'app-dynamic-form-table',
-  templateUrl: './dynamic-form-table.component.html',
-  styleUrls: ['./dynamic-form-table.component.less']
+  selector: 'app-reactive-table',
+  templateUrl: './reactive-table.component.html',
+  styleUrls: ['./reactive-table.component.less']
 })
-export class DynamicFormTableComponent extends ComponentBase implements OnInit {
+export class ReactiveTableComponent extends ComponentBase implements OnInit {
   displayData: any[] = [];
   pagination = true;
   title = '标题';
@@ -32,9 +29,16 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
     // tslint:disable-next-line: no-bitwise
     return this.cols.filter(x => x.show & 1);
   }
-  @Input() dataSource: any[];
+  private _values: any[];
+  get values() {
+    return this.arr.value;
+  }
+  @Input() set values(value: any[]) {
+    this._values = value;
+    this.valuesChange.emit(this._values);
+  }
+  @Output() valuesChange = new EventEmitter<any[]>();
   @ViewChild('nzTable', { static: true }) table: NzTableComponent;
-  // @Input() expandContent: (item: any) => string;
   editId: string | null;
   @ViewChild(NzInputDirective, { static: false, read: ElementRef }) inputElement: ElementRef;
 
@@ -44,17 +48,13 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
       this.editId = null;
     }
   }
-  constructor(private fb: FormBuilder,
-    private viewContainerRef: ViewContainerRef,
-    private viewRef: ViewRef,
-    private modelService: ModelFieldService) {
+  constructor(private modelService: ModelFieldService) {
     super();
   }
 
   ngOnInit() {
-    const arr = this.modelService.buildFormArray(this.cols, this.dataSource);
+    const arr = this.modelService.buildFormArray(this.cols, this._values);
     this.group.addControl(this.tableArrayName, arr);
-    console.log(this.viewRef);
   }
   expandContent(rowId: number) {
     const expand = this.cols.find(x => x.propertyName === '_expand');
@@ -132,3 +132,4 @@ export class DynamicFormTableComponent extends ComponentBase implements OnInit {
     return `${col.propertyName}_${index}`;
   }
 }
+

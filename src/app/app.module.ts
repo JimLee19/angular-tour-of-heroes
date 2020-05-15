@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './_modules/core.module';
 import { SharedModule } from './_modules/shared.module';
 import { FeatureModule } from './_modules/feature.module';
+import { RouteReuseStrategy } from '@angular/router';
+import { CacheRouteReuseStrategy } from './layout/tab/cache-route-reuse-strategy';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,7 @@ import { FeatureModule } from './_modules/feature.module';
   ],
   providers: [
     /*路由复用策略*/
-   // { provide: RouteReuseStrategy, useClass: CacheRouteReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: CacheRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]
 })

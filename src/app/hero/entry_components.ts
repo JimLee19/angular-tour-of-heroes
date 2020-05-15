@@ -14,7 +14,7 @@ export const TabHeroComponents = [
     { path: 'add', component: HeroFormComponent }
 ];
 export const HeroEntryComponents = [
-   // ...LayoutComponents,
+    // ...LayoutComponents,
     HomeComponent,
     DashboardComponent,
     HeroDetailComponent,
