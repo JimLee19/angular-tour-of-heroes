@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ComponentBase } from '../component.base';
 import { Field, ModelField, SelectItem } from '../../_models/model-field';
 import { FormGroup } from '@angular/forms';
+import { validationMessage } from 'app/common/validation-message';
 
 @Component({
   selector: 'app-reactive-control',
@@ -41,5 +42,8 @@ export class ReactiveControlComponent extends ComponentBase implements Field, On
     console.dir(value);
     this.control.patchValue(value && Array.of(value).join(','));
 
+  }
+  get validationMessage() {
+    return validationMessage(this.column, this.control);
   }
 }

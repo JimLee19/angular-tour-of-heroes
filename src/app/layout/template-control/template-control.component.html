@@ -1,11 +1,13 @@
 <ng-container [ngSwitch]="controlType">
-    <nz-form-control nzErrorTip="">
-        <nz-select [nzAllowClear]="true" [nzPlaceHolder]="placeholder" [nzSize]="size" [nzDisabled]="disabled"
-            [(ngModel)]="value" *ngSwitchCase="'dropdown'">
+    <nz-form-control [nzErrorTip]='validationMessage(f)' *ngSwitchCase="'dropdown'">
+        <nz-select [nzAllowClear]="true" [name]="name||column.propertyName" [nzPlaceHolder]="placeholder"
+            [nzSize]="size" [nzDisabled]="disabled" [(ngModel)]="value" #f="ngModel">
             <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value">
             </nz-option>
         </nz-select>
-        <input nz-input [type]="controlType" [(ngModel)]="value" [nzSize]="size" [disabled]="disabled"
-            [placeholder]="placeholder" required *ngSwitchDefault />
+    </nz-form-control>
+    <nz-form-control [nzErrorTip]='validationMessage(f)' *ngSwitchDefault>
+        <input nz-input [name]="name||column.propertyName" [type]="controlType" [(ngModel)]="value" [nzSize]="size"
+            [disabled]="disabled" [placeholder]="placeholder" required #f="ngModel" />       
     </nz-form-control>
 </ng-container>

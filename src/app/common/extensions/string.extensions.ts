@@ -3,7 +3,12 @@
 
 if (!String.prototype.hasOwnProperty('format')) {
     String.prototype.format = function () {
-        return this;
+        if (arguments.length === 0) { return this; }
+        let s = this;
+        for (let i = 0; i < arguments.length; i++) {
+            s = s.replace(new RegExp('\\{' + i + '\\}', 'g'), arguments[i]);
+        }
+        return s;
     };
 }
 if (!String.prototype.hasOwnProperty('startsWith')) {

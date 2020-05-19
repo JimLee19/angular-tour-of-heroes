@@ -32,7 +32,6 @@ const ngZorroConfig: NzConfig = {
     NgZorroAntdModule, /** 导入 ng-zorro-antd 模块 **/
   ],
   providers: [
-    { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: NZ_ICONS, useValue: icons },
     { provide: NZ_I18N, useValue: zh_CN }, /** 配置 ng-zorro-antd 国际化（文案 及 日期） **/
   ],
@@ -47,6 +46,7 @@ export class FeatureModule {
       ngModule: FeatureModule,
       providers: [
         ...providers,
+        { provide: NZ_CONFIG, useValue: ngZorroConfig },
       ]
     };
   }

@@ -1,20 +1,20 @@
 <ng-container [formGroup]="group" [ngSwitch]="controlType">
-    <nz-form-control>
-            <ng-container *ngSwitchCase="'dropdown'">
-                    <nz-select  [formControlName]="column.propertyName" [nzAllowClear]="true"
-                            [nzPlaceHolder]="placeholder" [nzSize]="size" [nzMode]="mode" [nzDisabled]="disabled">
-                            <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value">
-                            </nz-option>
-                    </nz-select>
-                    <!-- <nz-select [name]="control.name" [nzAllowClear]="true" [nzPlaceHolder]="placeholder"
+        <nz-form-control [nzErrorTip]='validationMessage'>
+                <ng-container *ngSwitchCase="'dropdown'">
+                        <nz-select [formControlName]="column.propertyName" [nzAllowClear]="true"
+                                [nzPlaceHolder]="placeholder" [nzSize]="size" [nzMode]="mode" [nzDisabled]="disabled">
+                                <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value">
+                                </nz-option>
+                        </nz-select>
+                        <!-- <nz-select [name]="control.name" [nzAllowClear]="true" [nzPlaceHolder]="placeholder"
                             [nzSize]="size" nzMode="multiple" [nzDisabled]="disabled"
                             [ngModel]="control.value | multiSelectParse" (ngModelChange)="onModelChange($event)"
                             [ngModelOptions]="{standalone: true}">
                             <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value">
                             </nz-option>
                     </nz-select> -->
-            </ng-container>
-            <input [type]="controlType" [nzSize]="size" [formControlName]="column.propertyName" nz-input
-                    [placeholder]="placeholder" *ngSwitchDefault />
-    </nz-form-control>
+                </ng-container>
+                <input [type]="controlType" [nzSize]="size" [formControlName]="column.propertyName" nz-input
+                        [placeholder]="placeholder" *ngSwitchDefault />
+        </nz-form-control>
 </ng-container>

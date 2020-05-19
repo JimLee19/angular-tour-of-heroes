@@ -17,10 +17,9 @@ import { MultiSelectParsePipe } from '../_pipes/multi-select-parse.pipe';
 import { MultiSelectDirective, DynamicFormTableDirective, EditBehaviorDirective } from '../_directives/multi-select.directive';
 
 
-
 @NgModule({
   imports: [
-    CommonModule,
+   // CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 300 }),
@@ -40,7 +39,7 @@ import { MultiSelectDirective, DynamicFormTableDirective, EditBehaviorDirective 
     EditBehaviorDirective,
   ],
   exports: [
-    CommonModule,
+   // CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HtmlPipe,
@@ -57,20 +56,4 @@ import { MultiSelectDirective, DynamicFormTableDirective, EditBehaviorDirective 
   ]
 })
 /**共享模块 */
-export class SharedModule {
-  static forRoot(providers: Provider[] = []): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ...providers,
-        // {
-        //   provide: TabViewService,
-        //   useValue: TabViewService.create(ENTRY_COMPONENTS)
-        // },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: ErrorHandler, useClass: GlobalErrorHandler },
-      ]
-    };
-  }
-}
+export class SharedModule { }

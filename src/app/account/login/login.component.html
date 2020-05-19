@@ -1,21 +1,21 @@
 <form nz-form [nzLayout]="'inline'" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <nz-form-item>
-        <nz-form-control [nzErrorTip]="getValidationMessage('username')">
-          <nz-input-group nzPrefixIcon="">
-            <input formControlName="username" nz-input placeholder="username" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control [nzErrorTip]="getValidationMessage('password')">
-          <nz-input-group nzPrefixIcon="">
-            <input formControlName="password" nz-input type="password" placeholder="Password" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <button nz-button nzType="primary" [disabled]="!loginForm.valid">Log in</button>
-        </nz-form-control>
-      </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="getValidationMessage('username')">
+      <nz-input-group nzPrefixIcon="">
+        <input formControlName="username" nz-input placeholder="username" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="getValidationMessage('password')">
+      <nz-input-group nzPrefixIcon="">
+        <input formControlName="password" nz-input type="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" [disabled]="!loginForm.valid">Log in</button>
+    </nz-form-control>
+  </nz-form-item>
 </form>

@@ -11,6 +11,7 @@ export class ModelField {
     readonly?: FieldReadOnly;
     isRequired?: boolean;
     callback?: (data: any) => string;
+    /** */
     Attrs?: ModelFieldAttr[];
 }
 class ModelFieldAttr {

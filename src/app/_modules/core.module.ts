@@ -1,30 +1,40 @@
-import { NgModule, ModuleWithProviders, Optional, SkipSelf, Provider } from '@angular/core';
+import {
+  NgModule,
+  ModuleWithProviders,
+  Optional,
+  SkipSelf,
+  Provider,
+  ErrorHandler,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import {
+  JwtInterceptor,
+  ErrorInterceptor,
+  GlobalErrorHandler,
+} from '../_helpers';
+import { CacheRouteReuseStrategy } from '../layout/tab/cache-route-reuse-strategy';
 
-
+const core_list = [
+  CommonModule,
+  HttpClientModule,
+  RouterModule,
+  BrowserModule,
+  BrowserAnimationsModule,
+];
 
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule,
-    BrowserModule,
-    BrowserAnimationsModule,
+    ...core_list
   ],
   exports: [
-    CommonModule,
-    RouterModule,
-    // HttpClientModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
-  ]
+    ...core_list
+  ],
 })
 /**核心模块 */
 export class CoreModule {
@@ -36,7 +46,16 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...providers,
-      ]
+        // {
+        //   provide: TabViewService,
+        //   useValue: TabViewService.create(ENTRY_COMPONENTS)
+        // },
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        /*路由复用策略*/
+        { provide: RouteReuseStrategy, useClass: CacheRouteReuseStrategy },
+      ],
     };
   }
 }
